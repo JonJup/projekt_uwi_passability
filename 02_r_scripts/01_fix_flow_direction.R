@@ -49,6 +49,13 @@ dt_rivers  <-
                 "rlp_10137",
                 "rlp_10152",
                 "rlp_10174",
+                "rlp_10420",
+                "rlp_10595",
+                "rlp_10596",
+                "rlp_10597",
+                "rlp_10598",
+                "rlp_10599",
+                "rlp_10604",
                 "rlp_16929",
                 "rlp_16930",
                 
@@ -93,6 +100,10 @@ dt_rivers[ecoserv_id == "rlp_10398", FROM := "P3150"]
 dt_rivers[ecoserv_id == "rlp_10398", TO   := "P3160"]
 dt_rivers[ecoserv_id == "rlp_10399", FROM := "P3150"]
 dt_rivers[ecoserv_id == "rlp_10509", FROM := "P3374"]
+dt_rivers[ecoserv_id == "rlp_10560", FROM := "P3474"]
+dt_rivers[ecoserv_id == "rlp_10580", FROM := "P3474"]
+dt_rivers[ecoserv_id == "rlp_10581", FROM := "P3480"]
+dt_rivers[ecoserv_id == "rlp_10589", FROM := "P3512"]
 dt_rivers[ecoserv_id == "rlp_10611", FROM := "P3414"]
 dt_rivers[ecoserv_id == "rlp_10627", FROM := "P3598"]
 dt_rivers[ecoserv_id == "rlp_10627", TO   := "P3612"]
@@ -150,14 +161,17 @@ dt_rivers = reverse(x= c(
         "rlp_10418",
         "rlp_10471",
         "rlp_10479",
-        "rlp_10507",
+        "rlp_10506",
+        "rlp_10557",
         "rlp_10558",
         "rlp_10559",
-        "rlp_10563",
+        "rlp_10562",
+        "rlp_10584",
         "rlp_10585",
         "rlp_10592",
         "rlp_10593",
-        "rlp_10633",
+        "rlp_10632",
+        "rlp_10639",
         "rlp_10640",
         "rlp_10642",
         "rlp_10646",

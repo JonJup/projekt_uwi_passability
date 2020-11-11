@@ -33,7 +33,7 @@ dir_rs = "02_r_scripts/"
 source(file.path(dir_rs, "01_fix_flow_direction.R"))
 
 # options 
-save     = TRUE
+save     = FALSE
 tmap_mode("view")
 
 # carpeting ---------------------------------------------------------------
@@ -41,7 +41,7 @@ tmap_mode("view")
 
 # create a spatial object for the rivers (st_river). The object has the class "sf" inherited from the package sf. 
 st_rivers = st_as_sf(dt_rivers)
-# in case the coordiantes reference system (crs) of sites is not the same as that of the rivers ... 
+# in case the coordinates reference system (crs) of sites is not the same as that of the rivers ... 
 if (st_crs(st_sites) != st_crs(st_rivers)) {
         # ... transform sites data to have the same crs. %<>% is a piping
         # operator from the magrittr package. More specifically it is the
@@ -66,7 +66,7 @@ which(st_sites$site %in% c("ES001", "ES002", "ES003"))
 
 # Figuratively speaking this loops lets the water flow through the rivers. It
 # loops over the start positions.
-for (j in c(1)) { # START LOOP 1 
+for (j in c(1:3)) { # START LOOP 1 
     
         # find the river segment that is closest to the point (i.e. the start segment)
         start_segement <- st_nearest_feature(x = st_sites[j,], 
