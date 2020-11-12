@@ -37,6 +37,8 @@ st_sites  = readRDS(file.path(dir_da, "sites_original.RDS"))
 # carpeting ---------------------------------------------------------------
 dt_rivers[, ecoserv_number := as.numeric(str_extract(string=ecoserv_id, pattern="[0-9].*"))]
 
+dt_rivers[ecoserv_id == "rlp_6", FROM := "dlaaa"]
+
 # delete segments ---------------------------------------------------------
 dt_rivers  <-
         dt_rivers[!ecoserv_id %in% c(
@@ -57,6 +59,7 @@ dt_rivers  <-
                 "rlp_10598",
                 "rlp_10599",
                 "rlp_10604",
+                "rlp_10605",
                 "rlp_16929",
                 "rlp_16930",
                 
@@ -247,6 +250,7 @@ dt_rivers = reverse(x= c(
         "vdn_8103",
         # "vdn_8104",
         
+        "swd_40692",
         "swd_45701",
         "swd_45704",
         "swd_51994",
@@ -331,6 +335,9 @@ dt_rivers = add_river(from_line = "rlp_373", to_line = "swd_68162",
 dt_rivers = add_river(from_line = "rlp_10594", to_line = "swd_68142",
                       from_point = "P3546", to_point = "P103151"
                       )
+dt_rivers = add_river(from_line = "rlp_727", to_line = "rlp_728",
+                      from_point = "P226", to_point = "P228"
+                      )
 
 
 
@@ -370,7 +377,7 @@ saveRDS(object=dt_rivers,
         file=file.path(dir_da, "temporary_rivers.RDS"))
 }
 if (remove) {
-        rm(list=ls())
+        rm(list=ls());gc()
 }
 # workshop ---------------------------------------------------------------
 if (workshop){

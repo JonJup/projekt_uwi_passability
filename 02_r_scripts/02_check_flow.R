@@ -33,7 +33,7 @@ dir_rs = "02_r_scripts/"
 source(file.path(dir_rs, "01_fix_flow_direction.R"))
 
 # options 
-save     = FALSE
+save     = TRUE
 tmap_mode("view")
 
 # carpeting ---------------------------------------------------------------
@@ -66,7 +66,7 @@ which(st_sites$site %in% c("ES001", "ES002", "ES003"))
 
 # Figuratively speaking this loops lets the water flow through the rivers. It
 # loops over the start positions.
-for (j in c(1:3)) { # START LOOP 1 
+for (j in c(1)) { # START LOOP 1 
     
         # find the river segment that is closest to the point (i.e. the start segment)
         start_segement <- st_nearest_feature(x = st_sites[j,], 
