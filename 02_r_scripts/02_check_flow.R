@@ -36,6 +36,9 @@ source(file.path(dir_rs, "01_fix_flow_direction.R"))
 save     = TRUE
 tmap_mode("view")
 
+## -- add your sampling sites here ! -- ## 
+st_sites = readRDS("01_data/new_sites1.RDS")
+
 # carpeting ---------------------------------------------------------------
 # change files in a way that we can use them further on. 
 
