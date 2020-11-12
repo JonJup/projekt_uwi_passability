@@ -84,9 +84,55 @@ distance_table = data.table("point_id" = sf_point$layer,
 distance_table = distance_table[nn_distance <= 1000]
 
 
+st_sites_new = st_read("01_data/sites_new_all.gpkg")
+
+## -- create point subsets -- ## 
+ra_bbox2 = raster(
+        nrows = 2,
+        ncols = 2,
+        xmn = st_rivers_bbox[1],
+        xmx = st_rivers_bbox[3],
+        ymn = st_rivers_bbox[2],
+        ymx = st_rivers_bbox[4],
+        crs = crs_object
+)
+
+values(ra_bbox2) <- 1:ncell(ra_bbox2)
+
+tm_shape(ra_bbox2) + tm_raster() + tm_shape(st_sites_new) + tm_dots()
+
+st_crop(x = st_sites_new,
+        y = ra_bbox2[ra_bbox2 == 1])
+st_sites_new$raster = raster::extract(x = ra_bbox2, 
+                y = st_sites_new)
+
+st_sites_new %>% 
+        tm_shape() + 
+        tm_dots(col = "raster")
+
+sites1 = st_sites_new %>% filter(raster == 1)
+sites2 = st_sites_new %>% filter(raster == 2)
+sites3 = st_sites_new %>% filter(raster == 3)
+sites4 = st_sites_new %>% filter(raster == 4)
+
+sites1 = sites1[sample(1:nrow(sites1), size = 100),]
+sites2 = sites2[sample(1:nrow(sites1), size = 100),]
+sites3 = sites3[sample(1:nrow(sites1), size = 100),]
+sites4 = sites4[sample(1:nrow(sites1), size = 100),]
+
+sites4 %>% 
+        tm_shape() + 
+        tm_dots(col = "raster")
+
 # save to file  -----------------------------------------------------------
 if (save) {
 sf_point %>%  
         filter(layer %in% distance_table$point_id) %>%
         st_write(dsn = file.path(dir_da, "some_points.gpkg"))
+sites1  %>% saveRDS(file = "01_data/new_sites1.RDS")   
+sites2  %>% saveRDS(file = "01_data/new_sites2.RDS")   
+sites3  %>% saveRDS(file = "01_data/new_sites3.RDS")   
+sites4  %>% saveRDS(file = "01_data/new_sites4.RDS")   
+        
+        
 }
