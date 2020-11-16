@@ -37,7 +37,7 @@ save     = TRUE
 tmap_mode("view")
 
 ## -- add your sampling sites here ! -- ## 
-st_sites = readRDS("01_data/new_sites1.RDS")
+#st_sites = readRDS("01_data/new_sites1.RDS")
 
 # carpeting ---------------------------------------------------------------
 # change files in a way that we can use them further on. 
@@ -69,7 +69,7 @@ which(st_sites$site %in% c("ES001", "ES002", "ES003"))
 
 # Figuratively speaking this loops lets the water flow through the rivers. It
 # loops over the start positions.
-for (j in c(1)) { # START LOOP 1 
+for (j in c(1:4)) { # START LOOP 1 
     
         # find the river segment that is closest to the point (i.e. the start segment)
         start_segement <- st_nearest_feature(x = st_sites[j,], 
@@ -168,7 +168,7 @@ dt_rivers_loop %>%
   filter(evaled != 0) %>%
   st_as_sf() %>%
   tm_shape() +
-  tm_lines(col = "score_down_eval",
+  tm_lines(col = "evaled",
            palette = "RdYlGn",
            scale = 4)
 
