@@ -69,7 +69,7 @@ which(st_sites$site %in% c("ES001", "ES002", "ES003"))
 
 # Figuratively speaking this loops lets the water flow through the rivers. It
 # loops over the start positions.
-for (j in c(1:4)) { # START LOOP 1 
+for (j in c(2)) { # START LOOP 1 
     
         # find the river segment that is closest to the point (i.e. the start segment)
         start_segement <- st_nearest_feature(x = st_sites[j,], 

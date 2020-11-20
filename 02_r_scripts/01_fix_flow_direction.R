@@ -12,8 +12,7 @@
 ## OPTIONS 
 workshop=FALSE
 remove=FALSE
-save=FALSE
-
+save=TRUE
 # setup -------------------------------------------------------------------
 pacman::p_load(data.table,
                dplyr,
@@ -118,6 +117,9 @@ dt_rivers[ecoserv_id == "rlp_10118", FROM := "P2590"]
 dt_rivers[ecoserv_id == "rlp_10143", FROM := "P2634"]
 dt_rivers[ecoserv_id == "rlp_10143", TO   := "P2638"]
 dt_rivers[ecoserv_id == "rlp_10280", FROM := "P3136"]
+dt_rivers[ecoserv_id == "rlp_10389", TO := "Px3136"]
+dt_rivers[ecoserv_id == "rlp_10390", FROM := "Px3136"]
+dt_rivers[ecoserv_id == "rlp_10390", TO := "P3136"]
 dt_rivers[ecoserv_id == "rlp_10391", FROM := "P3136"]
 dt_rivers[ecoserv_id == "rlp_10394", FROM := "P2917"]
 dt_rivers[ecoserv_id == "rlp_10398", FROM := "P3150"]
@@ -149,6 +151,7 @@ dt_rivers[ecoserv_id == "sar_8158",  TO   := "P114079"]
 dt_rivers[ecoserv_id == "sar_8400",  FROM := "P122813"]
 dt_rivers[ecoserv_id == "sar_8400",  TO   := "P403"]
 dt_rivers[ecoserv_id == "vdn_16960", FROM := "P10564"]
+
 
 
 # out ---------------------------------------------------------------------
@@ -431,6 +434,8 @@ dt_rivers = add_river(from_line = "swd_68100", to_line = "rlp_10994",
                       )
 
 
+# modify added lines  -----------------------------------------------------
+dt_rivers[ecoserv_id == "add_72929", FROM := "P103941"]
 
 ## ---- add rows ----- ## 
 new_number_rlp <- dt_rivers[str_detect(string=ecoserv_id,pattern="rlp"), max(ecoserv_number)]
@@ -465,7 +470,7 @@ rm(add_river, dir_fun, dt_new_row, new_number_rlp, reverse);gc()
 # save to file  -----------------------------------------------------------
 if (save) {
 saveRDS(object=dt_rivers,
-        file=file.path(dir_da, "temporary_rivers.RDS"))
+        file=file.path(dir_da, "fixed_rivers.RDS"))
 }
 if (remove) {
         rm(list=ls());gc()
