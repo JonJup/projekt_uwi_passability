@@ -10,35 +10,37 @@
 # overview # 
 
 ## OPTIONS 
-workshop=FALSE
-remove=FALSE
-save=TRUE
+OPTIONS = list(workshop= F, 
+               remove= F,
+               save = T)
+
 # setup -------------------------------------------------------------------
 pacman::p_load(data.table,
                dplyr,
                here,
+               lwgeom,
                magrittr,
                sf,
                stringr,
                tmap)
-# dirs
-dir_da  = here("01_data/")
-dir_fun = here("02_r_scripts/")
 
 # load reverse function 
-source(file.path(dir_fun, "f_01_reverse.R"))
-source(file.path(dir_fun, "f_02_add_river.R"))
+source(file.path(DIR$rs, "f_01_reverse.R"))
+source(file.path(DIR$rs, "f_02_add_river.R"))
+source(file.path(DIR$rs,  "f_03_split_rivers.R"))
 
 # load data ---------------------------------------------------------------
-dt_rivers = readRDS(file.path(dir_da, "rivers.RDS"))
-st_sites  = readRDS(file.path(dir_da, "sites_original.RDS"))
-
+dt_rivers = readRDS(file.path(DIR$da, "rivers.RDS"))
+st_sites  = readRDS(file.path(DIR$da, "sites_original.RDS"))
+st_barrier = st_read(file.path(DIR$da, "2020-08-22_all_barriers.gpkg"), quiet = T)
 # carpeting ---------------------------------------------------------------
 dt_rivers[, ecoserv_number := as.numeric(str_extract(string=ecoserv_id, pattern="[0-9].*"))]
-
-dt_rivers[ecoserv_id == "rlp_6", FROM := "dlaaa"]
+if (st_crs(st_barrier) != st_crs(st_as_sf(dt_rivers))) {
+        st_barrier %<>% st_transform(crs = st_crs(st_as_sf(dt_rivers)))
+}
 
 # delete segments ---------------------------------------------------------
+print("### --- DELETING SEGMENTS --- ###")
 dt_rivers  <-
         dt_rivers[!ecoserv_id %in% c(
                 "rlp_55",
@@ -70,9 +72,38 @@ dt_rivers  <-
                 "rlp_10653",
                 "rlp_10654",
                 "rlp_10736",
+                "rlp_10737",
+                "rlp_10782",
+                "rlp_10783",
+                "rlp_10820",
+                "rlp_10821",
+                "rlp_10902",
+                "rlp_10918",
+                "rlp_10919",
+                "rlp_10930",
+                "rlp_10931",
+                "rlp_10932",
+                "rlp_10933",
+                "rlp_10941",
+                "rlp_10942",
+                "rlp_10943",
+                "rlp_10944",
+                "rlp_10945",
+                "rlp_10947",
+                "rlp_10948",
+                "rlp_10950",
+                "rlp_10951",
+                "rlp_10965",
+                "rlp_10966",
+                "rlp_10967",
+                "rlp_10968",
+                "rlp_10969",
+                "rlp_10979",
+                "rlp_10981",
                 "rlp_10982",
                 "rlp_10983",
                 "rlp_10988",
+                "rlp_10989",
                 "rlp_10990",
                 "rlp_10991",
                 "rlp_10992",
@@ -85,13 +116,16 @@ dt_rivers  <-
                 "swd_33118",
                 "swd_34009",
                 "swd_37142",
+                "swd_37206",
                 "swd_37658",
                 "swd_37712",
                 "swd_38065",
                 "swd_39272",
+                "swd_40177",
                 "swd_40883",
                 "swd_41717",
                 "swd_43986",
+                "swd_44793",
                 "swd_48147",
                 "swd_67705",
                 "swd_63726",
@@ -110,6 +144,7 @@ dt_rivers  <-
 
 
 # manual improvements -----------------------------------------------------
+print("### --- MANUAL IMPROVEMENTS --- ###")
 dt_rivers[ecoserv_id == "rlp_54"   , FROM := "P52"]
 dt_rivers[ecoserv_id == "rlp_192"  , FROM := "P2184"]
 dt_rivers[ecoserv_id == "rlp_192"  , TO := "p_add_01"]
@@ -134,6 +169,7 @@ dt_rivers[ecoserv_id == "rlp_10611", FROM := "P3414"]
 dt_rivers[ecoserv_id == "rlp_10627", FROM := "P3598"]
 dt_rivers[ecoserv_id == "rlp_10627", TO   := "P3612"]
 dt_rivers[ecoserv_id == "rlp_10634", FROM := "P3422"]
+dt_rivers[ecoserv_id == "rlp_10770", FROM := "P288"]
 dt_rivers[ecoserv_id == "rlp_11198", TO   := "P404"]
 dt_rivers[ecoserv_id == "rlp_14111", FROM := "P29614"]
 dt_rivers[ecoserv_id == "rlp_14942", TO   := "P11990"]
@@ -158,7 +194,8 @@ dt_rivers[ecoserv_id == "vdn_16960", FROM := "P10564"]
 # Not sure anymore what this does ... 
 dt_rivers[ecoserv_id %in% c("vdn_6657", "vdn_6658", "vdn_6660"), c("FROM", "TO") := c(1,2,3)]
 
-# reverse -----------------------------------------------------------------
+# REVERSE -----------------------------------------------------------------
+print("### --- REVERSE SEGMENTS --- ###")
 dt_rivers = reverse(x= c(
         "rlp_197", 
         "rlp_537",
@@ -203,10 +240,14 @@ dt_rivers = reverse(x= c(
         "rlp_10640",
         "rlp_10642",
         "rlp_10645",
-        "rlp_10674",
+        "rlp_10673",
+        "rlp_10725",
         "rlp_10726",
         "rlp_10727",
+        "rlp_10768",
         "rlp_10770",
+        "rlp_10771",
+        "rlp_10774",
         "rlp_11002",
         "rlp_11005",
         "rlp_11007",
@@ -250,23 +291,23 @@ dt_rivers = reverse(x= c(
         "rlp_12908",
         "rlp_12917",
         "rlp_13889",
-        "rlp_13910",
-        "rlp_13913",
-        "rlp_13917",
-        "rlp_13928",
-        "rlp_13962",
-        "rlp_13975",
-        "rlp_13978",
-        "rlp_14038",
-        "rlp_14046",
-        "rlp_14101",
-        "rlp_14147",
-        "rlp_14157",
+        "rlp_13909",
+        "rlp_13912",
+        "rlp_13916",
+        "rlp_13927",
+        "rlp_13961",
+        "rlp_13974",
+        "rlp_13977",
+        "rlp_14037",
+        "rlp_14045",
+        "rlp_14100",
+        "rlp_14146",
+        "rlp_14156",
+        "rlp_14695",
         "rlp_14696",
-        "rlp_14697",
-        "rlp_14719",
-        "rlp_14924",
-        "rlp_14933",
+        "rlp_14718",
+        "rlp_14923",
+        "rlp_14932",
         "rlp_14935",
         "rlp_15187",
         "rlp_15191",
@@ -311,6 +352,7 @@ dt_rivers = reverse(x= c(
         #"vdn_7689",
         "vdn_7698",
         "vdn_7700",
+        "vdn_7772",
         "vdn_7963",
         "vdn_7964",
         "vdn_7965",
@@ -357,30 +399,69 @@ dt_rivers = reverse(x= c(
         "swd_68181",
         
         
+        "sar_166",
         "sar_444",
         "sar_464",
         "sar_477",
         "sar_3319",
+        "sar_5822",
         "sar_6538",
         "sar_6547",
+        "sar_7129",
         "sar_7140",
         "sar_7290",
         "sar_7287",
         "sar_7291",
         "sar_7309",
         "sar_7318",
-        "sar_8158",
+        "sar_8077",
+        "sar_8079",
+        "sar_8081",
+        "sar_8083",
+        "sar_8086",
+        "sar_8087",
+        "sar_8089",
+        "sar_8090",
+        "sar_8095",
+        "sar_8098",
+        "sar_8099",
+        "sar_8100",
+        "sar_8102",
+        "sar_8104",
+        "sar_8108",
+        "sar_8112",
+        "sar_8113",
+        "sar_8115",
+        "sar_8118",
+        "sar_8120",
+        "sar_8122",
+        "sar_8124",
+        "sar_8131",
+        "sar_8132",
+        "sar_8134",
+        "sar_8135",
+        "sar_8136",
+        "sar_8137",
+        "sar_8140",
+        "sar_8141",
+        "sar_8142",
+        "sar_8147",
+        "sar_8148",
+        "sar_8149",
+        "sar_8150",
+        "sar_8152",
+        "sar_8154",
+        "sar_8156",
         "sar_8159",
         "sar_8160",
-        "sar_8161",
-        "sar_8163",
         "sar_8165",
         "sar_8167",
         "sar_8170",
         "sar_8171"
 ))
 
-# add new lines  ----------------------------------------------------------
+# ADD LINES  ----------------------------------------------------------
+print("### --- ADD SEGMENTS --- ###")
 dt_rivers = add_river(from_line = "rlp_148", to_line = "rlp_10105",
                       from_point = "P42", to_point = "P44"
                       )
@@ -432,10 +513,27 @@ dt_rivers = add_river(from_line = "rlp_782", to_line = "swd_68123",
 dt_rivers = add_river(from_line = "swd_68100", to_line = "rlp_10994",
                       from_point = "P244", to_point = "P4344"
                       )
+dt_rivers = add_river(from_line = "rlp_16917", to_line = "swd_68110",
+                      from_point = "P16192", to_point = "P103962"
+                      )
+dt_rivers = add_river(from_line = "rlp_936", to_line = "swd_68108",
+                      from_point = "P293", to_point = "P42163"
+                      )
 
+
+#  SPLIT LINES  -----------------------------------------------------------
+print("### --- SPLIT SEGMENTS --- ###")
+data = st_as_sf(dt_rivers)
+data = split_lines(data  = data, 
+            split = "vdn_7815", 
+            by    = "sar_8075")
+setDT(data)
+dt_rivers = data
 
 # modify added lines  -----------------------------------------------------
 dt_rivers[ecoserv_id == "add_72929", FROM := "P103941"]
+dt_rivers[ecoserv_id == "split_1", FROM := "P127267"]
+dt_rivers[ecoserv_id == "split_1", TO := "P29431"]
 
 ## ---- add rows ----- ## 
 new_number_rlp <- dt_rivers[str_detect(string=ecoserv_id,pattern="rlp"), max(ecoserv_number)]
@@ -467,16 +565,16 @@ dt_rivers = dt_rivers[!ecoserv_id %in% c(
 rm(add_river, dir_fun, dt_new_row, new_number_rlp, reverse);gc()
 
 
-# save to file  -----------------------------------------------------------
-if (save) {
+# SAVE  -----------------------------------------------------------
+if (OPTIONS$save) {
 saveRDS(object=dt_rivers,
-        file=file.path(dir_da, "fixed_rivers.RDS"))
+        file=file.path(DIR$da, "fixed_rivers.RDS"))
 }
-if (remove) {
+if (OPTIONS$remove) {
         rm(list=ls());gc()
 }
-# workshop ---------------------------------------------------------------
-if (workshop){
+# WORKSHOP ---------------------------------------------------------------
+if (OPTIONS$workshop){
         
         tmap_mode("view")
         st_rivers = st_as_sf(dt_rivers)
