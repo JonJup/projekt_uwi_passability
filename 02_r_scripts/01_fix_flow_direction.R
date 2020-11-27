@@ -290,6 +290,7 @@ dt_rivers = reverse(x= c(
         "rlp_12876",
         "rlp_12908",
         "rlp_12917",
+        "rlp_13302",
         "rlp_13889",
         "rlp_13909",
         "rlp_13912",
@@ -323,6 +324,7 @@ dt_rivers = reverse(x= c(
         "rlp_16615",
         "rlp_16623",
         "rlp_16626",
+        "rlp_16954",
 
         "vdn_247",
         "vdn_2088",
@@ -331,10 +333,13 @@ dt_rivers = reverse(x= c(
         "vdn_4394",
         "vdn_4400",
         "vdn_4416",
+        "vdn_4430",
         "vdn_4634",
+        "vdn_5051",
         "vdn_5421",
         "vdn_5890",
         "vdn_6121",
+        "vdn_6674",
         "vdn_7371",
         "vdn_7393",
         "vdn_7398",
@@ -352,15 +357,33 @@ dt_rivers = reverse(x= c(
         #"vdn_7689",
         "vdn_7698",
         "vdn_7700",
+        "vdn_7704",
+        "vdn_7705",
+        "vdn_7708",
         "vdn_7772",
         "vdn_7963",
         "vdn_7964",
         "vdn_7965",
         "vdn_7966",
         "vdn_7967",
+        "vdn_7974",
+        "vdn_7978",
+        "vdn_7994",
+        "vdn_7998",
         "vdn_8047",
+        "vdn_8065",
+        "vdn_8067",
         "vdn_8103",
         # "vdn_8104",
+        "vdn_8202",
+        "vdn_8232",
+        "vdn_8233",
+        "vdn_8239",
+        "vdn_8244",
+        "vdn_8301",
+        "vdn_8315",
+        "vdn_8317",
+        "vdn_8319",
         
         "swd_40692",
         "swd_45701",
@@ -404,6 +427,7 @@ dt_rivers = reverse(x= c(
         "sar_464",
         "sar_477",
         "sar_3319",
+        "sar_4873",
         "sar_5822",
         "sar_6538",
         "sar_6547",
@@ -519,6 +543,15 @@ dt_rivers = add_river(from_line = "rlp_16917", to_line = "swd_68110",
 dt_rivers = add_river(from_line = "rlp_936", to_line = "swd_68108",
                       from_point = "P293", to_point = "P42163"
                       )
+dt_rivers = add_river(from_line = "vdn_8246", to_line = "sar_4880",
+                      from_point = "P30382", to_point = "P120878"
+)
+dt_rivers = add_river(from_line = "sar_1918", to_line = "sar_4880",
+                      from_point = "P116043", to_point = "P120878"
+)
+dt_rivers = add_river(from_line = "sar_4873", to_line = "rlp_3787",
+                      from_point = "P120863", to_point = "P961"
+)
 
 
 #  SPLIT LINES  -----------------------------------------------------------
