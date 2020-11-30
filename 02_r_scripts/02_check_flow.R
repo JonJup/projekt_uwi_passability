@@ -70,7 +70,7 @@ which(st_sites$site %in% c("ES001", "ES002", "ES003"))
 
 # Figuratively speaking this loops lets the water flow through the rivers. It
 # loops over the start positions.
-for (j in c(6)) { # START LOOP 1 
+for (j in c(26)) { # START LOOP 1 
     
         # find the river segment that is closest to the point (i.e. the start segment)
         start_segement <- st_nearest_feature(x = st_sites[j,], 
@@ -173,6 +173,8 @@ dt_rivers_loop %>%
            palette = "RdYlGn",
            scale = 4)
 
+
+dt_rivers_loop[, info := paste0(ecoserv_id,":",FROM, "-", TO)]
   
 # This code chunk saves the file in a spatial data format. In case you want to open it in QGIS 
 if (save) {

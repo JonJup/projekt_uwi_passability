@@ -51,6 +51,7 @@ dt_rivers  <-
                 "rlp_374",
                 "rlp_248",
                 "rlp_740",
+                "rlp_1370",
                 "rlp_10137",
                 "rlp_10152",
                 "rlp_10174",
@@ -164,13 +165,27 @@ dt_rivers  <-
                 "swd_72366",
                 "swd_72911",
                 
+                "vdn_2342",
+                "vdn_5868",
+                "vdn_5685",
+                "vdn_5869",
+                "vdn_6655",
+                "vdn_6656",
+                "vdn_6657",
+                "vdn_6658",
                 "vdn_6661",
-                "vdn_7861"
-       
+                "vdn_6671",
+                "vdn_6672",
+                "vdn_6673",
+                "vdn_7770",
+                "vdn_7861",
+                "vdn_6659",
+                "vdn_6660",
+                "vdn_678"
 )]
 
 
-# manual improvements -----------------------------------------------------
+# MANUAL -----------------------------------------------------
 print("### --- MANUAL IMPROVEMENTS --- ###")
 dt_rivers[ecoserv_id == "rlp_54"   , FROM := "P52"]
 dt_rivers[ecoserv_id == "rlp_192"  , FROM := "P2184"]
@@ -197,16 +212,19 @@ dt_rivers[ecoserv_id == "rlp_10627", FROM := "P3598"]
 dt_rivers[ecoserv_id == "rlp_10627", TO   := "P3612"]
 dt_rivers[ecoserv_id == "rlp_10634", FROM := "P3422"]
 dt_rivers[ecoserv_id == "rlp_10770", FROM := "P288"]
-dt_rivers[ecoserv_id == "rlp_11198", TO   := "P404"]
+
 dt_rivers[ecoserv_id == "rlp_14111", FROM := "P29614"]
-dt_rivers[ecoserv_id == "rlp_14942", TO   := "P11990"]
 dt_rivers[ecoserv_id == "rlp_16937", FROM   := "P2917"]
 
 dt_rivers[ecoserv_id == "vdn_2342" , TO   := "P28346"]
+dt_rivers[ecoserv_id == "vdn_3872" , TO := "P21634_add"]
+dt_rivers[ecoserv_id == "vdn_4415" , FROM := "P21634_add"]
 dt_rivers[ecoserv_id == "vdn_2342" , FROM := "P22684"]
 dt_rivers[ecoserv_id == "vdn_4399" , FROM := "P22684"]
 dt_rivers[ecoserv_id == "vdn_7362" , FROM := "P20200"]
 dt_rivers[ecoserv_id == "vdn_7362" , TO   := "P22508"]
+dt_rivers[ecoserv_id == "vdn_8001" , FROM   := "P21820"]
+dt_rivers[ecoserv_id == "vdn_8001" , TO   := "P29426"]
 
 dt_rivers[ecoserv_id == "sar_4600",  FROM := "P10674"]
 dt_rivers[ecoserv_id == "sar_8158",  FROM := "P117261"]
@@ -215,18 +233,17 @@ dt_rivers[ecoserv_id == "sar_8400",  FROM := "P122813"]
 dt_rivers[ecoserv_id == "sar_8400",  TO   := "P403"]
 dt_rivers[ecoserv_id == "vdn_16960", FROM := "P10564"]
 
-
-
 # out ---------------------------------------------------------------------
 # Not sure anymore what this does ... 
-dt_rivers[ecoserv_id %in% c("vdn_6657", "vdn_6658", "vdn_6660"), c("FROM", "TO") := c(1,2,3)]
+#dt_rivers[ecoserv_id %in% c("vdn_6657", "vdn_6658", "vdn_6660"), c("FROM", "TO") := c(1,2,3)]
 
 # REVERSE -----------------------------------------------------------------
 print("### --- REVERSE SEGMENTS --- ###")
 dt_rivers = reverse(x= c(
         "rlp_197", 
         "rlp_537",
-        
+        "rlp_5003",
+        "rlp_7990",
         "rlp_10080",
         "rlp_10081",
         "rlp_10107",
@@ -246,7 +263,6 @@ dt_rivers = reverse(x= c(
         "rlp_10333", 
         "rlp_10334",
         "rlp_10338",
-        #"rlp_10339",
         "rlp_10400",
         "rlp_10406", 
         "rlp_10407",
@@ -287,8 +303,8 @@ dt_rivers = reverse(x= c(
         "rlp_11158",
         "rlp_11159",
         "rlp_11160",
-        "rlp_11178",
-        "rlp_11200",
+        "rlp_11177",
+        "rlp_11199",
         "rlp_11220",
         "rlp_11221",
         "rlp_11273",
@@ -331,12 +347,18 @@ dt_rivers = reverse(x= c(
         "rlp_14100",
         "rlp_14146",
         "rlp_14156",
-        "rlp_14695",
+        "rlp_14258",
+        "rlp_14291",
+        "rlp_14301",
+        "rlp_14302",
         "rlp_14696",
+        "rlp_14697",
         "rlp_14718",
+        "rlp_14719",
         "rlp_14923",
         "rlp_14932",
-        "rlp_14935",
+        "rlp_14934",
+        
         "rlp_15187",
         "rlp_15191",
         "rlp_15434",
@@ -354,39 +376,44 @@ dt_rivers = reverse(x= c(
         "rlp_16954",
 
         "vdn_247",
+        "vdn_425",
+        "vdn_1011",
         "vdn_2088",
         "vdn_3804",
-        "vdn_3872",
+        "vdn_3871",
         "vdn_4394",
-        "vdn_4400",
-        "vdn_4416",
         "vdn_4430",
-        "vdn_4634",
+        "vdn_4633",
         "vdn_5051",
+        "vdn_5420",
         "vdn_5421",
         "vdn_5890",
+        "vdn_6120",
         "vdn_6121",
+        "vdn_6192",
         "vdn_6674",
         "vdn_7371",
-        "vdn_7393",
-        "vdn_7398",
-        "vdn_7408",
-        "vdn_7412",
+        "vdn_7391",
+        "vdn_7396",
+        "vdn_7406",
+        "vdn_7410",
+        "vdn_7411",
+        
         "vdn_7413",
-        "vdn_7426",
-        "vdn_7436",
+        "vdn_7424",
+        "vdn_7434",
         "vdn_7468",
         "vdn_7469",
         "vdn_7470",
         "vdn_7683",
-        #"vdn_7685",
+
         "vdn_7687",
-        #"vdn_7689",
+        "vdn_7696",
         "vdn_7698",
-        "vdn_7700",
         "vdn_7704",
         "vdn_7705",
         "vdn_7708",
+        "vdn_7768",
         "vdn_7772",
         "vdn_7963",
         "vdn_7964",
@@ -400,8 +427,8 @@ dt_rivers = reverse(x= c(
         "vdn_8047",
         "vdn_8065",
         "vdn_8067",
-        "vdn_8103",
-        # "vdn_8104",
+        "vdn_8101",
+        "vdn_8102",
         "vdn_8202",
         "vdn_8232",
         "vdn_8233",
@@ -411,6 +438,7 @@ dt_rivers = reverse(x= c(
         "vdn_8315",
         "vdn_8317",
         "vdn_8319",
+        
         
         "swd_32047",
         "swd_32579",
@@ -466,6 +494,8 @@ dt_rivers = reverse(x= c(
         "swd_47489",
         "swd_47493",
         "swd_47618",
+        
+        "swd_50566",
         "swd_51087",
         "swd_51088",
         "swd_51090",
@@ -499,6 +529,7 @@ dt_rivers = reverse(x= c(
         "swd_63165",
         "swd_63166",
         "swd_65204",
+        "swd_67410",
         "swd_68114",
         "swd_68110",
         "swd_68105",
@@ -512,24 +543,60 @@ dt_rivers = reverse(x= c(
         "swd_68155",
         "swd_68157", 
         "swd_68181",
+        "swd_68203",
+        "swd_68218",
+        "swd_68216",
         "swd_69498",
         
         "sar_166",
         "sar_444",
+        "sar_460",
         "sar_464",
         "sar_477",
+        
         "sar_3319",
+        
         "sar_4873",
+        
+        "sar_5482",
+        "sar_5483",
+        "sar_5487",
+        "sar_5500",
+        "sar_5507",
+        "sar_5508",
+        "sar_5510",
+        "sar_5511",
+        "sar_5513",
+        "sar_5514",
+        "sar_5516",
+        "sar_5517",
+        "sar_5521",
+        "sar_5523",
+        "sar_5527",
+        "sar_5528",
+        "sar_5529",
+        "sar_5530",
+        "sar_5531",
+        "sar_5539",
+        "sar_5541",
+        "sar_5542",
+        #"sar_5543",
+        "sar_5545",
+        "sar_5546",
+        "sar_5555",
         "sar_5822",
-        "sar_6538",
+        
+        "sar_6536",
         "sar_6547",
+        
         "sar_7129",
         "sar_7140",
-        "sar_7290",
-        "sar_7287",
-        "sar_7291",
-        "sar_7309",
+        "sar_7285",
+        "sar_7288",
+        "sar_7289",
+        "sar_7307",
         "sar_7318",
+        
         "sar_8077",
         "sar_8079",
         "sar_8081",
@@ -643,6 +710,36 @@ dt_rivers = add_river(from_line = "sar_1918", to_line = "sar_4880",
 )
 dt_rivers = add_river(from_line = "sar_4873", to_line = "rlp_3787",
                       from_point = "P120863", to_point = "P961"
+)
+dt_rivers = add_river(from_line = "vdn_7769", to_line = "sar_5556",
+                      from_point = "P18244", to_point = "P122230"
+)
+dt_rivers = add_river(from_line = "sar_5482", to_line = "rlp_7990",
+                      from_point = "P122081", to_point = "P2163"
+)
+dt_rivers = add_river(from_line = "rlp_5003", to_line = "rlp_14273",
+                      from_point = "P1352", to_point = "P10050"
+)
+dt_rivers = add_river(from_line = "rlp_11198", to_line = "rlp_11199",
+                      from_point = "P4754", to_point = "P404"
+)
+dt_rivers = add_river(from_line = "rlp_14942", to_line = "rlp_14943",
+                      from_point = "P12242", to_point = "P11990"
+)
+dt_rivers = add_river(from_line = "vdn_8099", to_line = "swd_68224",
+                      from_point = "P27234", to_point = "P104190"
+)
+dt_rivers = add_river(from_line = "vdn_7437", to_line = "swd_68204",
+                      from_point = "P27204", to_point = "P96301"
+)
+dt_rivers = add_river(from_line = "vdn_6192", to_line = "swd_68221",
+                      from_point = "P25166", to_point = "P55667"
+)
+dt_rivers = add_river(from_line = "vdn_5689", to_line = "swd_68227",
+                      from_point = "P25268", to_point = "P91393"
+)
+dt_rivers = add_river(from_line = "vdn_7412", to_line = "swd_68196",
+                      from_point = "P27208", to_point = "P35769"
 )
 
 
