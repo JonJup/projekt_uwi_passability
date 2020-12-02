@@ -104,8 +104,11 @@ dt_rivers  <-
                 "swd_71961",
                 
                 "vdn_6661",
-                "vdn_7861"
-       
+                "vdn_7861",
+                "vdn_7763",
+                "vdn_3890",
+                "vdn_3946"
+                
 )]
 
 
@@ -152,8 +155,8 @@ dt_rivers[ecoserv_id == "sar_8400",  FROM := "P122813"]
 dt_rivers[ecoserv_id == "sar_8400",  TO   := "P403"]
 dt_rivers[ecoserv_id == "vdn_16960", FROM := "P10564"]
 
-
-
+dt_rivers[ecoserv_id == "rlp_373", FROM := "rlp_10825"]
+dt_rivers[ecoserv_id == "rlp_373", TO := "swd_68162"]
 # out ---------------------------------------------------------------------
 # Not sure anymore what this does ... 
 dt_rivers[ecoserv_id %in% c("vdn_6657", "vdn_6658", "vdn_6660"), c("FROM", "TO") := c(1,2,3)]
