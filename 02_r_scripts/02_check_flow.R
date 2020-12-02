@@ -25,15 +25,16 @@ pacman::p_load(sf,
 setwd(here("C:/Users/euble/Documents/projekt_uwi_passability/"))
 
 # directories 
-dir_da = "01_data/"
-dir_rs = "02_r_scripts/"
+DIR = list()
+DIR$da = "01_data/"
+DIR$rs = "02_r_scripts/"
 
 # load data ---------------------------------------------------------------
 # Run script for fixed rivers  
-source(file.path(dir_rs, "01_fix_flow_direction.R"))
+source(file.path(DIR$rs, "01_fix_flow_direction.R"))
 
 # options 
-save     = TRUE
+save     = F
 tmap_mode("view")
 
 ## -- add your sampling sites here ! -- ## 
@@ -53,7 +54,7 @@ if (st_crs(new_sites1) != st_crs(st_rivers)) {
         # details.
         new_sites1 %<>% st_transform(crs = st_crs(st_rivers))
 }
-
+ 
 # copy is required for data.tables as copy-on modify does not work. 
 dt_rivers_loop <- copy(dt_rivers)
 # create new id going from 1 to the number of rows in dt_rivers_loop
@@ -61,7 +62,7 @@ dt_rivers_loop[, row_id := 1:nrow(dt_rivers_loop)]
 # create the new variable "evaled" (short for evaluated) and assign a value of zero to each row. 
 dt_rivers_loop[,evaled:=0]
 # create a spatial object of class "sf" based on dt_rivers_loop
-st_rivers_loop = st_as_sf(dt_rivers_loop)
+st_rivers_loop = st_as_sf(as.data.frame(dt_rivers_loop))
 
 # find number of sites when you know the id 
 which(new_sites1$site %in% c("ES001", "ES002", "ES003"))
@@ -69,11 +70,14 @@ which(new_sites1$site %in% c("ES001", "ES002", "ES003"))
 
 # Figuratively speaking this loops lets the water flow through the rivers. It
 # loops over the start positions.
+
+
 for (j in c(4)) { # START LOOP 1 
     
         # find the river segment that is closest to the point (i.e. the start segment)
-        start_segement <- st_nearest_feature(x = new_sites1[j,], 
-                                             y = st_rivers)
+        start_segement <- st_nearest_feature(x = st_sites[j,], 
+                                             y = st_rivers_loop)
+
         # the last_id variable hold the segment from which "water is coming" 
         last_id = start_segement
         # assign the start segment its own scores for up and down and mark it as evaled 
@@ -172,11 +176,13 @@ dt_rivers_loop %>%
            palette = "RdYlGn",
            scale = 4)
 
+
+dt_rivers_loop[, info := paste0(ecoserv_id,":",FROM, "-", TO)]
   
 # This code chunk saves the file in a spatial data format. In case you want to open it in QGIS 
 if (save) {
         old_temp = dir(
-                path = dir_da,
+                path = DIR$da,
                 pattern = "_workshop",
                 full.names = TRUE
         )
@@ -184,7 +190,7 @@ if (save) {
         dt_rivers_loop %>%
           st_as_sf() %>%
           st_write(dsn = file.path(
-            dir_da,
+            DIR$da,
             paste0(
               Sys.Date(),
               "_workshop_map.gpkg"
