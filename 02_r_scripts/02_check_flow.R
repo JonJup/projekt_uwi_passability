@@ -22,7 +22,7 @@ pacman::p_load(sf,
                stringr)
 
 # here is the location of the .Rproj file 
-setwd(here())
+setwd(here("C:/Users/euble/Documents/projekt_uwi_passability/"))
 
 # directories 
 dir_da = "01_data/"
@@ -37,7 +37,7 @@ save     = TRUE
 tmap_mode("view")
 
 ## -- add your sampling sites here ! -- ## 
-#st_sites = readRDS("01_data/new_sites1.RDS")
+st_sites = readRDS("new_sites1.RDS")
 
 # carpeting ---------------------------------------------------------------
 # change files in a way that we can use them further on. 
@@ -45,13 +45,13 @@ tmap_mode("view")
 # create a spatial object for the rivers (st_river). The object has the class "sf" inherited from the package sf. 
 st_rivers = st_as_sf(dt_rivers)
 # in case the coordinates reference system (crs) of sites is not the same as that of the rivers ... 
-if (st_crs(st_sites) != st_crs(st_rivers)) {
+if (st_crs(new_sites1) != st_crs(st_rivers)) {
         # ... transform sites data to have the same crs. %<>% is a piping
         # operator from the magrittr package. More specifically it is the
         # assignment pipe that assigns the result of the operation to the
         # initial object. See https://magrittr.tidyverse.org/index.html for more
         # details.
-        st_sites %<>% st_transform(crs = st_crs(st_rivers))
+        new_sites1 %<>% st_transform(crs = st_crs(st_rivers))
 }
 
 # copy is required for data.tables as copy-on modify does not work. 
@@ -64,15 +64,15 @@ dt_rivers_loop[,evaled:=0]
 st_rivers_loop = st_as_sf(dt_rivers_loop)
 
 # find number of sites when you know the id 
-which(st_sites$site %in% c("ES001", "ES002", "ES003"))
+which(new_sites1$site %in% c("ES001", "ES002", "ES003"))
 
 
 # Figuratively speaking this loops lets the water flow through the rivers. It
 # loops over the start positions.
-for (j in c(2)) { # START LOOP 1 
+for (j in c(4)) { # START LOOP 1 
     
         # find the river segment that is closest to the point (i.e. the start segment)
-        start_segement <- st_nearest_feature(x = st_sites[j,], 
+        start_segement <- st_nearest_feature(x = new_sites1[j,], 
                                              y = st_rivers)
         # the last_id variable hold the segment from which "water is coming" 
         last_id = start_segement

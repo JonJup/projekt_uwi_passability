@@ -3,4 +3,5 @@
 .RData
 .Ruserdata
 01_data/
+02_r_scripts/02_check_flow.R
 
