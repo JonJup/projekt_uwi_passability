@@ -107,7 +107,10 @@ dt_rivers  <-
                 "vdn_7861",
                 "vdn_7763",
                 "vdn_3890",
-                "vdn_3946"
+                "vdn_3946",
+                
+                "vdn_8216",
+                "vdn_3658"
                 
 )]
 
@@ -435,7 +438,8 @@ dt_rivers = add_river(from_line = "rlp_782", to_line = "swd_68123",
 dt_rivers = add_river(from_line = "swd_68100", to_line = "rlp_10994",
                       from_point = "P244", to_point = "P4344"
                       )
-
+dt_rivers = add_river(from_line = "vdn_5359", to_line = "vdn_8217",
+                      from_point = "P24608", to_point = "P29308")
 
 # modify added lines  -----------------------------------------------------
 dt_rivers[ecoserv_id == "add_72929", FROM := "P103941"]
