@@ -182,7 +182,7 @@ dt_rivers  <-
                 "vdn_6659",
                 "vdn_6660",
                 "vdn_678"
-)]
+        )]
 
 
 # MANUAL -----------------------------------------------------
@@ -377,7 +377,7 @@ dt_rivers = reverse(x= c(
         "rlp_16623",
         "rlp_16626",
         "rlp_16954",
-
+        
         #"vdn_247",
         "vdn_297",
         "vdn_425",
@@ -519,7 +519,7 @@ dt_rivers = reverse(x= c(
         "vdn_7469",
         "vdn_7470",
         "vdn_7683",
-
+        
         "vdn_7687",
         "vdn_7696",
         "vdn_7698",
@@ -776,61 +776,61 @@ dt_rivers = reverse(x= c(
 print("### --- ADD SEGMENTS --- ###")
 dt_rivers = add_river(from_line = "rlp_148", to_line = "rlp_10105",
                       from_point = "P42", to_point = "P44"
-                      )
+)
 dt_rivers = add_river(from_line = "rlp_54", to_line = "swd_68189",
                       from_point = "P26", to_point = "P104120"
-                      )
+)
 dt_rivers = add_river(from_line = "rlp_188", to_line = "rlp_9913",
                       from_point = "P52", to_point = "P2183"
-                      )
+)
 dt_rivers = add_river(from_line = "rlp_10145", to_line = "rlp_201",
                       from_point = "P2648", to_point = "P61"
-                      )
+)
 dt_rivers = add_river(from_line = "rlp_201", to_line = "rlp_202",
                       from_point = "P62", to_point = "P54"
-                      )
+)
 dt_rivers = add_river(from_line = "rlp_202", to_line = "swd_68185",
                       from_point = "P64", to_point = "P104112"
-                      )
+)
 dt_rivers = add_river(from_line = "rlp_192", to_line = "rlp_191",
                       from_point = "p_add_01", to_point = "P55"
-                      )
+)
 dt_rivers = add_river(from_line = "rlp_10403", to_line = "swd_68158",
                       from_point = "P3160", to_point = "P104058"
-                      )
+)
 dt_rivers = add_river(from_line = "rlp_373", to_line = "swd_68162",
                       from_point = "P128", to_point = "P104066"
-                      )
+)
 dt_rivers = add_river(from_line = "rlp_10594", to_line = "swd_68142",
                       from_point = "P3546", to_point = "P103151"
-                      )
+)
 dt_rivers = add_river(from_line = "rlp_727", to_line = "rlp_728",
                       from_point = "P226", to_point = "P228"
-                      )
+)
 dt_rivers = add_river(from_line = "rlp_11219", to_line = "rlp_11220",
                       from_point = "P4796", to_point = "P4782"
-                      )
+)
 dt_rivers = add_river(from_line = "rlp_3128", to_line = "rlp_12726",
                       from_point = "P746", to_point = "P4678"
-                      )
+)
 dt_rivers = add_river(from_line = "rlp_14384", to_line = "rlp_14385",
                       from_point = "P11126", to_point = "P10962"
-                      )
+)
 dt_rivers = add_river(from_line = "rlp_6696", to_line = "rlp_15803",
                       from_point = "P1724", to_point = "P8940"
-                      )
+)
 dt_rivers = add_river(from_line = "rlp_782", to_line = "swd_68123",
                       from_point = "P244", to_point = "P103988"
-                      )
+)
 dt_rivers = add_river(from_line = "swd_68100", to_line = "rlp_10994",
                       from_point = "P244", to_point = "P4344"
-                      )
+)
 dt_rivers = add_river(from_line = "rlp_16917", to_line = "swd_68110",
                       from_point = "P16192", to_point = "P103962"
-                      )
+)
 dt_rivers = add_river(from_line = "rlp_936", to_line = "swd_68108",
                       from_point = "P293", to_point = "P42163"
-                      )
+)
 dt_rivers = add_river(from_line = "vdn_8246", to_line = "sar_4880",
                       from_point = "P30382", to_point = "P120878"
 )
@@ -888,8 +888,8 @@ dt_rivers = add_river(from_line = "rlp_3826", to_line = "rlp_13321",
 print("### --- SPLIT SEGMENTS --- ###")
 data = st_as_sf(dt_rivers)
 data = split_lines(data  = data, 
-            split = "vdn_7815", 
-            by    = "sar_8075")
+                   split = "vdn_7815", 
+                   by    = "sar_8075")
 setDT(data)
 dt_rivers = data
 
@@ -930,8 +930,8 @@ rm(add_river, dir_fun, dt_new_row, new_number_rlp, reverse);gc()
 
 # SAVE  -----------------------------------------------------------
 if (OPTIONS$save) {
-saveRDS(object=dt_rivers,
-        file=file.path(DIR$da, "fixed_rivers.RDS"))
+        saveRDS(object=dt_rivers,
+                file=file.path(DIR$da, "fixed_rivers.RDS"))
 }
 if (OPTIONS$remove) {
         rm(list=ls());gc()
@@ -967,7 +967,7 @@ if (OPTIONS$workshop){
         st_cropped=sf::st_crop(
                 x=st_rivers,
                 y=cut_bbox
-                )
+        )
         # 
         tm_shape(st_cropped) + tm_lines() +
                 tm_shape(st_sites_sub) + tm_dots(col = "red")
@@ -979,7 +979,7 @@ if (OPTIONS$workshop){
         st_rivers_sub =
                 st_rivers %>%
                 filter(ecoserv_id %in% c("rlp_188", "rlp_9913"))
-         
+        
         st_data = st_rivers
         st_data_sub = st_data %>%
                 filter(ecoserv_id %in% c(from_line, to_line))
@@ -1002,7 +1002,7 @@ if (OPTIONS$workshop){
         
         tm_shape(st_points_from) + tm_dots() +
                 tm_shape(st_points_to) + tm_dots()
-         
+        
         p_id1 = st_nearest_feature(x = st_line_to,
                                    y = st_points_from)
         p_id2 = st_nearest_feature(x = st_line_from,
@@ -1016,7 +1016,7 @@ if (OPTIONS$workshop){
                 st_rivers_sub %>%
                 st_cast(to = "POINT");
         options(warn=1)
-         
+        
         st_rivers_sub_point %<>%
                 mutate(p_id = 1:nrow(st_rivers_sub_point))
         point_id_2 <-
@@ -1038,7 +1038,7 @@ if (OPTIONS$workshop){
                 st_drop_geometry() %>%
                 select(p_id) %>%
                 .[point_id_2,]
-         
+        
         tm_shape(st_rivers_sub_point) +
                 tm_dots()
         
@@ -1055,7 +1055,7 @@ if (OPTIONS$workshop){
         
         tm_shape(st_rivers_sub) + tm_lines() +
                 tm_shape(st_new_line) + tm_lines()
-         
+        
         df_attributes = data.frame(
                 "ecoserv_id" = paste0("add_",
                                       max(dt_rivers$ecoserv_number) + 1),
