@@ -65,12 +65,12 @@ dt_rivers_loop[,evaled:=0]
 st_rivers_loop = st_as_sf(as.data.frame(dt_rivers_loop))
 
 # find number of sites when you know the id 
-which(st_sites$site %in% c("ES001", "ES002", "ES003"))
+#which(st_sites$site %in% c("ES001", "ES002", "ES003"))
 
 
 # Figuratively speaking this loops lets the water flow through the rivers. It
 # loops over the start positions.
-for (j in c(26)) { # START LOOP 1 
+for (j in c(31)) { # START LOOP 1 
     
         # find the river segment that is closest to the point (i.e. the start segment)
         start_segement <- st_nearest_feature(x = st_sites[j,], 
@@ -146,7 +146,7 @@ for (j in c(26)) { # START LOOP 1
                 print(paste0("round ", counter,": ", names(going_to)))
                 counter <- counter + 1
         } # END WHILE1
-} # END LOOP1 
+} # END LOOP1
 
 ## -- look at map -- ## 
 
