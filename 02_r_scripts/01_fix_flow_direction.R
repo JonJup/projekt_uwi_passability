@@ -43,8 +43,9 @@ if (st_crs(st_barrier) != st_crs(st_as_sf(dt_rivers))) {
 print("### --- DELETING SEGMENTS --- ###")
 dt_rivers  <-
         dt_rivers[!ecoserv_id %in% c(
-
+                
 # ...rlp ---------------------------------------------------------------------
+                
                 "rlp_55",
                 "rlp_56",
                 "rlp_203",
@@ -119,11 +120,8 @@ dt_rivers  <-
 
                 "swd_31782",
                 "swd_31923",
-<<<<<<< HEAD
                 "swd_31943",
-=======
                 "swd_31989",
->>>>>>> 04ea57b975709bd2542799a3daaf7b36d5bb7f0d
 
                 "swd_32041",
                 "swd_32259",
@@ -498,6 +496,21 @@ dt_rivers = reverse(x= c(
         "rlp_13310",
         "rlp_13313",
         "rlp_13321",
+        "rlp_13331",
+        "rlp_13541",
+        "rlp_13608",
+        "rlp_13627",
+        "rlp_13640",
+        "rlp_13659",
+        "rlp_13661",
+        "rlp_13663",
+        "rlp_13705",
+        "rlp_13711",
+        "rlp_13718",
+        "rlp_13752",
+        "rlp_13757",
+        "rlp_13762",
+        "rlp_13823",
         "rlp_13889",
         "rlp_13909",
         "rlp_13912",
@@ -538,6 +551,7 @@ dt_rivers = reverse(x= c(
         "rlp_16623",
         "rlp_16626",
         "rlp_16954",
+        "rlp_16956",
 
 # ... vdn -----------------------------------------------------------------
 
@@ -566,12 +580,14 @@ dt_rivers = reverse(x= c(
         "vdn_3686",
         "vdn_3697",
         "vdn_3699",
+        "vdn_3754",
         "vdn_3794",
         "vdn_3804",
         "vdn_3871",
         "vdn_3890",
         "vdn_3935",
         "vdn_3961",
+        "vdn_4090",
         "vdn_4102",
         "vdn_4246",
         "vdn_4265",
@@ -585,6 +601,7 @@ dt_rivers = reverse(x= c(
         "vdn_4595",
         "vdn_4605",
         "vdn_4633",
+        "vdn_4722",
         "vdn_4826",
         "vdn_4838",
         "vdn_4863",
@@ -592,6 +609,7 @@ dt_rivers = reverse(x= c(
         "vdn_4974",
         "vdn_4976",
         "vdn_5051",
+        "vdn_5199",
         "vdn_5245",
         "vdn_5258",
         "vdn_5361",
@@ -608,11 +626,14 @@ dt_rivers = reverse(x= c(
         "vdn_5887",
         "vdn_5890",
         "vdn_6051",
+        "vdn_6085",
         "vdn_6120",
         "vdn_6121",
         "vdn_6128",
         "vdn_6192",
+        "vdn_6196",
         "vdn_6256",
+        "vdn_6298",
         "vdn_6352",
         "vdn_6356",
         "vdn_6365",
@@ -743,7 +764,10 @@ dt_rivers = reverse(x= c(
         "vdn_7134",
         "vdn_7143",
         "vdn_7165",
+        "vdn_7212",
         "vdn_7282",
+        "vdn_7300",
+        "vdn_7304",
         "vdn_7371",
         "vdn_7384",
         "vdn_7386",
@@ -759,6 +783,19 @@ dt_rivers = reverse(x= c(
         "vdn_7468",
         #"vdn_7469",
         "vdn_7470",
+        "vdn_7581",
+        "vdn_7586",
+        "vdn_7588",
+        "vdn_7590",
+        "vdn_7594",
+        "vdn_7596",
+        "vdn_7603",
+        "vdn_7604",
+        "vdn_7608",
+        "vdn_7617",
+        "vdn_7620",
+        "vdn_7622",
+        "vdn_7637",
         "vdn_7683",
         
         "vdn_7687",
@@ -800,11 +837,16 @@ dt_rivers = reverse(x= c(
         "vdn_8181",
         "vdn_8182",
         "vdn_8185",
+        "vdn_8190",
+        "vdn_8191",
+        "vdn_8192",
         "vdn_8202",
         "vdn_8232",
         "vdn_8233",
         "vdn_8239",
         "vdn_8244",
+        "vdn_8293",
+        "vdn_8295",
         "vdn_8301",
         "vdn_8315",
         "vdn_8317",
@@ -1475,7 +1517,154 @@ dt_rivers = add_river(from_line = "rlp_3814", to_line = "rlp_13313",
 dt_rivers = add_river(from_line = "rlp_3826", to_line = "rlp_13321",
                       from_point = "P982", to_point = "P8998"
 )
-           
+dt_rivers = add_river(from_line = "rlp_13316", to_line = "rlp_13317",
+                      from_point = "P8990", to_point = "P8984"
+)
+dt_rivers = add_river(from_line = "rlp_13327", to_line = "rlp_13328",
+                      from_point = "P9012", to_point = "P9006"
+)
+dt_rivers = add_river(from_line = "rlp_13651", to_line = "rlp_13652",
+                      from_point = "P9660", to_point = "P9650"
+)
+dt_rivers = add_river(from_line = "rlp_13656", to_line = "rlp_13657",
+                      from_point = "P9670", to_point = "P9664"
+)
+dt_rivers = add_river(from_line = "rlp_13706", to_line = "rlp_13707",
+                      from_point = "P1181", to_point = "P9684"
+)
+dt_rivers = add_river(from_line = "rlp_13807", to_line = "rlp_13808",
+                      from_point = "P9972", to_point = "P9780"
+)
+dt_rivers = add_river(from_line = "rlp_13811", to_line = "rlp_13812",
+                      from_point = "P9980", to_point = "P9974"
+)
+dt_rivers = add_river(from_line = "rlp_13822", to_line = "rlp_13823",
+                      from_point = "P10002", to_point = "P9996"
+)
+dt_rivers = add_river(from_line = "rlp_13834", to_line = "rlp_13835",
+                      from_point = "P10026", to_point = "P10012"
+)
+dt_rivers = add_river(from_line = "rlp_3786", to_line = "rlp_16953",
+                      from_point = "P960", to_point = "P962"
+)
+dt_rivers = add_river(from_line = "rlp_3796", to_line = "rlp_16954",
+                      from_point = "P964", to_point = "P8958"
+)
+dt_rivers = add_river(from_line = "rlp_3820", to_line = "rlp_13318",
+                      from_point = "P976", to_point = "P8992"
+)
+dt_rivers = add_river(from_line = "rlp_3822", to_line = "rlp_13319",
+                      from_point = "P978", to_point = "P8994"
+)
+dt_rivers = add_river(from_line = "rlp_3824", to_line = "rlp_13320",
+                      from_point = "P980", to_point = "P8996"
+)
+dt_rivers = add_river(from_line = "rlp_3829", to_line = "rlp_13323",
+                      from_point = "P984", to_point = "P9002"
+)
+dt_rivers = add_river(from_line = "rlp_3831", to_line = "rlp_13324",
+                      from_point = "P986", to_point = "P9004"
+)
+dt_rivers = add_river(from_line = "rlp_3837", to_line = "rlp_13329",
+                      from_point = "P988", to_point = "P9014"
+)
+dt_rivers = add_river(from_line = "rlp_3839", to_line = "rlp_13330",
+                      from_point = "P990", to_point = "P9016"
+)
+dt_rivers = add_river(from_line = "rlp_3841", to_line = "rlp_13331",
+                      from_point = "P992", to_point = "P9018"
+)
+dt_rivers = add_river(from_line = "rlp_3843", to_line = "rlp_13332",
+                      from_point = "P994", to_point = "P9020"
+)
+dt_rivers = add_river(from_line = "rlp_4103", to_line = "rlp_13520",
+                      from_point = "P1148", to_point = "P9396"
+)
+dt_rivers = add_river(from_line = "rlp_4224", to_line = "rlp_13640",
+                      from_point = "P1154", to_point = "P9636"
+)
+dt_rivers = add_river(from_line = "rlp_4226", to_line = "rlp_13641",
+                      from_point = "P1156", to_point = "P9638"
+)
+dt_rivers = add_river(from_line = "rlp_4228", to_line = "rlp_13642",
+                      from_point = "P1158", to_point = "P9640"
+)
+dt_rivers = add_river(from_line = "rlp_4231", to_line = "rlp_13644",
+                      from_point = "P1160", to_point = "P9644"
+)
+dt_rivers = add_river(from_line = "rlp_4234", to_line = "rlp_13646",
+                      from_point = "P1162", to_point = "P9648"
+)
+dt_rivers = add_river(from_line = "rlp_4247", to_line = "rlp_13658",
+                      from_point = "P1164", to_point = "P9672"
+)
+dt_rivers = add_river(from_line = "rlp_4249", to_line = "rlp_13659",
+                      from_point = "P1166", to_point = "P9674"
+)
+dt_rivers = add_river(from_line = "rlp_4251", to_line = "rlp_13660",
+                      from_point = "P1168", to_point = "P9676"
+)
+dt_rivers = add_river(from_line = "rlp_4253", to_line = "rlp_13661",
+                      from_point = "P1170", to_point = "P9678"
+)
+dt_rivers = add_river(from_line = "rlp_4255", to_line = "rlp_13662",
+                      from_point = "P1172", to_point = "P9680"
+)
+dt_rivers = add_river(from_line = "rlp_4257", to_line = "rlp_13663",
+                      from_point = "P1174", to_point = "P9682"
+)
+dt_rivers = add_river(from_line = "rlp_4277", to_line = "rlp_13681",
+                      from_point = "P1180", to_point = "P1178"
+)
+dt_rivers = add_river(from_line = "rlp_4305", to_line = "rlp_13708",
+                      from_point = "P1184", to_point = "P9772"
+)
+dt_rivers = add_river(from_line = "rlp_4307", to_line = "rlp_13709",
+                      from_point = "P1186", to_point = "P9774"
+)
+dt_rivers = add_river(from_line = "rlp_4310", to_line = "rlp_13711",
+                      from_point = "P1188", to_point = "P9778"
+)
+dt_rivers = add_river(from_line = "rlp_4333", to_line = "rlp_13732",
+                      from_point = "P1192", to_point = "P9820"
+)
+dt_rivers = add_river(from_line = "rlp_4335", to_line = "rlp_13733",
+                      from_point = "P1194", to_point = "P9822"
+)
+dt_rivers = add_river(from_line = "rlp_4355", to_line = "rlp_13753",
+                      from_point = "P1196", to_point = "P9862"
+)
+dt_rivers = add_river(from_line = "rlp_4416", to_line = "rlp_4417",
+                      from_point = "P1198", to_point = "P1199"
+)
+dt_rivers = add_river(from_line = "rlp_4417", to_line = "rlp_13813",
+                      from_point = "P1200", to_point = "P9398"
+)
+dt_rivers = add_river(from_line = "rlp_4419", to_line = "rlp_13814",
+                      from_point = "P1202", to_point = "P9984"
+)
+dt_rivers = add_river(from_line = "rlp_4422", to_line = "rlp_13816",
+                      from_point = "P1204", to_point = "P9988"
+)
+dt_rivers = add_river(from_line = "rlp_4424", to_line = "rlp_13817",
+                      from_point = "P1206", to_point = "P9990"
+)
+dt_rivers = add_river(from_line = "rlp_4433", to_line = "rlp_13824",
+                      from_point = "P1210", to_point = "P10004"
+)
+dt_rivers = add_river(from_line = "rlp_4436", to_line = "rlp_13826",
+                      from_point = "P1212", to_point = "P10008"
+)
+dt_rivers = add_river(from_line = "rlp_4438", to_line = "rlp_13827",
+                      from_point = "P1214", to_point = "P10010"
+)
+dt_rivers = add_river(from_line = "rlp_4448", to_line = "rlp_4449",
+                      from_point = "P1216", to_point = "P1217"
+)
+dt_rivers = add_river(from_line = "rlp_4449", to_line = "rlp_13836",
+                      from_point = "P1218", to_point = "P9022"
+)
+
 
 
 #  SPLIT LINES  -----------------------------------------------------------
@@ -1487,6 +1676,9 @@ data = split_lines(data  = data,
 data = split_lines(data  = data, 
                    split = "rlp_10112", 
                    by    = "vdn_2668")
+#data = split_lines(data  = data, 
+#                   split = "rlp_10112", 
+#                   by    = "vdn_2668")
 # data = split_lines(data  = data, 
 #                    split = "vdn_2668", 
 #                    by    = "split_2")
