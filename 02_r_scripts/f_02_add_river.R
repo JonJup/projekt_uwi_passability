@@ -21,9 +21,8 @@ add_river = function(
         
         options(warn = -1)
         st_data     = st_as_sf(dt_data)
-        st_data_sub =
-                st_data %>%
-                filter(ecoserv_id %in% c(from_line, to_line))
+        dt_data_sub = dt_data[ecoserv_id %in% c(from_line, to_line)]
+        st_data_sub = st_as_sf(dt_data_sub)
         st_data_sub_points =
                 st_data_sub %>%
                 st_cast(to = "POINT") %>%

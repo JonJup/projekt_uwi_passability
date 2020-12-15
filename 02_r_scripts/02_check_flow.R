@@ -70,7 +70,7 @@ st_rivers_loop = st_as_sf(as.data.frame(dt_rivers_loop))
 
 # Figuratively speaking this loops lets the water flow through the rivers. It
 # loops over the start positions.
-for (j in c(31)) { # START LOOP 1 
+for (j in c(1)) { # START LOOP 1 
     
         # find the river segment that is closest to the point (i.e. the start segment)
         start_segement <- st_nearest_feature(x = st_sites[j,], 
