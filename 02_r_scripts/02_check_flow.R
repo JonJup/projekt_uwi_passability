@@ -70,7 +70,7 @@ st_rivers_loop = st_as_sf(as.data.frame(dt_rivers_loop))
 
 # Figuratively speaking this loops lets the water flow through the rivers. It
 # loops over the start positions.
-for (j in c(1)) { # START LOOP 1 
+for (j in c(1:5)) { # START LOOP 1 
     
         # find the river segment that is closest to the point (i.e. the start segment)
         start_segement <- st_nearest_feature(x = st_sites[j,], 
@@ -82,7 +82,7 @@ for (j in c(1)) { # START LOOP 1
                        c("score_up_eval", "score_down_eval", "evaled") :=
                                .(score_up, score_down, evaled + 1)]
          
-        # The counter variable ounts the rounds inside the while loop 
+        # The counter variable counts the rounds inside the while loop 
         counter = 1 
         # While loop with a trivial always true condition. 
         # Only stops through break() commands   

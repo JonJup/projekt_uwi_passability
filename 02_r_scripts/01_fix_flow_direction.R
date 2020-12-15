@@ -26,11 +26,10 @@ pacman::p_load(data.table,
 
 # load reverse function 
 source(file.path(DIR$rs, "f_01_reverse.R"))
-source(file.path(DIR$rs, "f_02_add_river.R"))
 source(file.path(DIR$rs,  "f_03_split_rivers.R"))
 
 # load data ---------------------------------------------------------------
-dt_rivers = readRDS(file.path(DIR$da, "rivers.RDS"))
+dt_rivers = readRDS(file.path(DIR$da, "rivers_w_added.RDS"))
 st_sites  = readRDS(file.path(DIR$da, "sites_original.RDS"))
 st_barrier = st_read(file.path(DIR$da, "2020-08-22_all_barriers.gpkg"), quiet = T)
 
