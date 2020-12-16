@@ -29,7 +29,7 @@ source(file.path(DIR$rs, "f_01_reverse.R"))
 source(file.path(DIR$rs,  "f_03_split_rivers.R"))
 
 # load data ---------------------------------------------------------------
-dt_rivers = readRDS(file.path(DIR$da, "rivers_w_added.RDS"))
+dt_rivers = readRDS(file.path(DIR$da, "fixed_w_added.RDS"))
 st_sites  = readRDS(file.path(DIR$da, "sites_original.RDS"))
 st_barrier = st_read(file.path(DIR$da, "2020-08-22_all_barriers.gpkg"), quiet = T)
 
@@ -347,9 +347,14 @@ dt_rivers  <-
 
 # ...vdn ---------------------------------------------------------------------
                 "vdn_2342",
+                "vdn_3493",
                 "vdn_3502",
                 "vdn_3553",
                 "vdn_3658",
+                "vdn_3658",
+                "vdn_3658",
+                "vdn_3890",
+                "vdn_3946",
                 "vdn_3946",
                 "vdn_5868",
                 "vdn_5685",
@@ -387,6 +392,7 @@ dt_rivers  <-
                 "vdn_7763",
                 "vdn_7770",
                 "vdn_7861",
+                "vdn_7985",
                 "vdn_8111",
                 "vdn_8112",
 
