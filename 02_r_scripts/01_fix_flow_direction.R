@@ -29,7 +29,7 @@ source(file.path(DIR$rs, "f_01_reverse.R"))
 source(file.path(DIR$rs,  "f_03_split_rivers.R"))
 
 # load data ---------------------------------------------------------------
-dt_rivers = readRDS(file.path(DIR$da, "fixed_w_added.RDS"))
+dt_rivers = readRDS(file.path(DIR$da, "rivers_w_added.RDS"))
 st_sites  = readRDS(file.path(DIR$da, "sites_original.RDS"))
 st_barrier = st_read(file.path(DIR$da, "2020-08-22_all_barriers.gpkg"), quiet = T)
 
@@ -113,6 +113,7 @@ dt_rivers  <-
                 "rlp_10991",
                 "rlp_10992",
                 "rlp_10993",
+                "rlp_14271",
                 "rlp_16929",
                 "rlp_16930",
 
@@ -120,6 +121,7 @@ dt_rivers  <-
                 
                 "swd_5129",
                 "swd_19631",
+                "swd_19688",
 
                 "swd_31787",
                 "swd_31782",
@@ -288,6 +290,7 @@ dt_rivers  <-
                 "swd_50486",
                 "swd_53467",
                 "swd_53470",
+                "swd_53736",
                 "swd_53948",
                 "swd_53949",
                 "swd_54166",
@@ -329,6 +332,8 @@ dt_rivers  <-
                 "swd_71702",
                 "swd_71703",
                 "swd_71961",
+                "swd_71962",
+                "swd_71963",
 
                 "swd_72024",
                 "swd_72025",
@@ -432,6 +437,7 @@ dt_rivers[ecoserv_id == "rlp_14111", FROM := "P29614"]
 dt_rivers[ecoserv_id == "rlp_16937", FROM   := "P2917"]
 
 dt_rivers[ecoserv_id == "vdn_269" , TO   := "P16648"]
+dt_rivers[ecoserv_id == "vdn_973" , TO   := "P29028"]
 dt_rivers[ecoserv_id == "vdn_2342" , TO   := "P28346"]
 dt_rivers[ecoserv_id == "vdn_3872" , TO := "P21634_add"]
 dt_rivers[ecoserv_id == "vdn_4415" , FROM := "P21634_add"]
@@ -650,6 +656,7 @@ dt_rivers = reverse(x= c(
 # ... vdn -----------------------------------------------------------------
 
         
+        "vdn_85",
         #"vdn_247",
         "vdn_297",
         "vdn_425",
@@ -670,8 +677,12 @@ dt_rivers = reverse(x= c(
         "vdn_3507",
         "vdn_3508",
         "vdn_3522",
+        "vdn_3542",
         "vdn_3652",
+        "vdn_3667",
+        "vdn_3669",
         "vdn_3686",
+        "vdn_3694",
         "vdn_3697",
         "vdn_3699",
         "vdn_3754",
@@ -679,6 +690,7 @@ dt_rivers = reverse(x= c(
         "vdn_3804",
         "vdn_3871",
         "vdn_3890",
+        "vdn_3909",
         "vdn_3935",
         "vdn_3961",
         "vdn_4090",
@@ -687,6 +699,7 @@ dt_rivers = reverse(x= c(
         "vdn_4265",
         "vdn_4292",
         "vdn_4321",
+        "vdn_4349",
         "vdn_4391",
         "vdn_4394",
         "vdn_4395",
@@ -698,20 +711,25 @@ dt_rivers = reverse(x= c(
         "vdn_4722",
         "vdn_4826",
         "vdn_4838",
+        "vdn_4856",
         "vdn_4863",
         "vdn_4878",
         "vdn_4974",
         "vdn_4976",
         "vdn_5051",
+        "vdn_5163",
         "vdn_5199",
         "vdn_5245",
         "vdn_5258",
         "vdn_5361",
+        "vdn_5367",
+        "vdn_5368",
         "vdn_5420",
         "vdn_5421",
         "vdn_5427",
         "vdn_5440",
         "vdn_5448",
+        "vdn_5449",
         "vdn_5465",
         "vdn_5467",
         "vdn_5471",
@@ -719,15 +737,20 @@ dt_rivers = reverse(x= c(
         "vdn_5883",
         "vdn_5887",
         "vdn_5890",
+        "vdn_5904",
+        "vdn_5936",
         "vdn_6051",
         "vdn_6085",
         "vdn_6120",
         "vdn_6121",
         "vdn_6128",
+        "vdn_6164",
         "vdn_6192",
+        "vdn_6193",
         "vdn_6196",
         "vdn_6256",
         "vdn_6298",
+        "vdn_6337",
         "vdn_6352",
         "vdn_6356",
         "vdn_6365",
@@ -847,6 +870,8 @@ dt_rivers = reverse(x= c(
         "vdn_6878",
         "vdn_6951",
         "vdn_6952",
+        "vdn_7026",
+        "vdn_7028",
         "vdn_7089",
         "vdn_7102",
         "vdn_7107",
@@ -859,9 +884,15 @@ dt_rivers = reverse(x= c(
         "vdn_7143",
         "vdn_7165",
         "vdn_7212",
+        "vdn_7262",
+        "vdn_7266",
+        "vdn_7267",
+        "vdn_7268",
         "vdn_7282",
         "vdn_7300",
         "vdn_7304",
+        "vdn_7345",
+        "vdn_7369",
         "vdn_7371",
         "vdn_7384",
         "vdn_7386",
@@ -877,6 +908,7 @@ dt_rivers = reverse(x= c(
         "vdn_7468",
         #"vdn_7469",
         "vdn_7470",
+        "vdn_7571",
         "vdn_7581",
         "vdn_7586",
         "vdn_7588",
@@ -901,6 +933,9 @@ dt_rivers = reverse(x= c(
         "vdn_7767",
         "vdn_7768",
         "vdn_7772",
+        "vdn_7930",
+        "vdn_7935",
+        "vdn_7953",
         "vdn_7959",
         "vdn_7962",
         #"vdn_7963",
@@ -919,6 +954,8 @@ dt_rivers = reverse(x= c(
         "vdn_8067",
         "vdn_8101",
         "vdn_8102",
+        "vdn_8114",
+        "vdn_8139",
         "vdn_8144",
         "vdn_8150",
         "vdn_8153",
@@ -931,6 +968,7 @@ dt_rivers = reverse(x= c(
         "vdn_8181",
         "vdn_8182",
         "vdn_8185",
+        "vdn_8187",
         "vdn_8190",
         "vdn_8191",
         "vdn_8192",
@@ -939,6 +977,8 @@ dt_rivers = reverse(x= c(
         "vdn_8233",
         "vdn_8239",
         "vdn_8244",
+        "vdn_8277",
+        "vdn_8280",
         "vdn_8293",
         "vdn_8295",
         "vdn_8301",
@@ -1604,9 +1644,13 @@ dt_rivers = reverse(x= c(
         "sar_477",
         
         "sar_3319",
+        "sar_3976",
+        "sar_3978",
+        "sar_3981",
         
         "sar_4873",
         
+        "sar_5250",
         "sar_5482",
         "sar_5483",
         "sar_5487",
@@ -1645,6 +1689,7 @@ dt_rivers = reverse(x= c(
         "sar_7289",
         "sar_7307",
         "sar_7318",
+        "sar_7724",
         
         "sar_8077",
         "sar_8079",
@@ -1689,7 +1734,8 @@ dt_rivers = reverse(x= c(
         "sar_8165",
         "sar_8167",
         "sar_8170",
-        "sar_8171"
+        "sar_8171",
+        "sar_8248"
 ))
 
 

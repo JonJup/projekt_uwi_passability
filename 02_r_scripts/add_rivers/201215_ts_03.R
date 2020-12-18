@@ -17,7 +17,7 @@ DIR$rs = "02_r_scripts/"
 
 # LOAD --------------------------------------------------------------------
 drive_find(n_max = 30)
-drive_download(file = "Projekt Uwi Passierbarkeit/rivers_w_added.RDS", overwrite = TRUE, path = file.path(DIR$da, "rivers_w_added.RDS"))
+#drive_download(file = "Projekt Uwi Passierbarkeit/rivers_w_added.RDS", overwrite = TRUE, path = file.path(DIR$da, "rivers_w_added.RDS"))
 dt_rivers = readRDS(file.path(DIR$da, "rivers_w_added.RDS"))
 
 dt_rivers[, ecoserv_number := as.numeric(str_extract(string=ecoserv_id, pattern="[0-9].*"))]
@@ -249,7 +249,7 @@ dt_rivers = add_river(from_line = "rlp_4451", to_line = "rlp_13837",
 dt_rivers = add_river(from_line = "rlp_4453", to_line = "rlp_13838",
                       from_point = "P1222", to_point = "P10032"
 )
-dt_rivers = add_river(from_line = "rlp_13844", to_line = "rlp_13845",
+dt_rivers = add_river(from_line = "rlp_4461", to_line = "rlp_13845",
                       from_point = "P1223", to_point = "P10034"
 )
 dt_rivers = add_river(from_line = "rlp_4463", to_line = "rlp_13846",
@@ -259,6 +259,6 @@ dt_rivers = add_river(from_line = "rlp_4463", to_line = "rlp_13846",
 # SAVE --------------------------------------------------------------------
 
 saveRDS(dt_rivers, file.path(DIR$da, "fixed_w_added.RDS"))
-drive_upload(media = file.path(DIR$da, "fixed_w_added.RDS"), 
-             path = "Projekt Uwi Passierbarkeit/rivers_w_added.RDS", 
-             overwrite = TRUE)
+#drive_upload(media = file.path(DIR$da, "fixed_w_added.RDS"), 
+#            path = "Projekt Uwi Passierbarkeit/rivers_w_added.RDS", 
+#           overwrite = TRUE)
