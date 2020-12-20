@@ -29,7 +29,7 @@ source(file.path(DIR$rs, "f_01_reverse.R"))
 source(file.path(DIR$rs,  "f_03_split_rivers.R"))
 
 # load data ---------------------------------------------------------------
-dt_rivers = readRDS(file.path(DIR$da, "rivers_w_added.RDS"))
+dt_rivers = readRDS(file.path(DIR$da, "fixed_w_added.RDS"))
 st_sites  = readRDS(file.path(DIR$da, "sites_original.RDS"))
 st_barrier = st_read(file.path(DIR$da, "2020-08-22_all_barriers.gpkg"), quiet = T)
 
@@ -422,7 +422,7 @@ dt_rivers[ecoserv_id == "rlp_10394", FROM := "P2917"]
 dt_rivers[ecoserv_id == "rlp_10398", FROM := "P3150"]
 dt_rivers[ecoserv_id == "rlp_10398", TO   := "P3160"]
 dt_rivers[ecoserv_id == "rlp_10399", FROM := "P3150"]
-dt_rivers[ecoserv_id == "rlp_10509", FROM := "P3374"]
+dt_rivers[ecoserv_id == "rlp_10509", FROM := "P_add_3374"]
 dt_rivers[ecoserv_id == "rlp_10560", FROM := "P3474"]
 dt_rivers[ecoserv_id == "rlp_10580", FROM := "P3474"]
 dt_rivers[ecoserv_id == "rlp_10581", FROM := "P3480"]
@@ -1749,6 +1749,7 @@ data = split_lines(data  = data,
 data = split_lines(data  = data, 
                    split = "rlp_10112", 
                    by    = "vdn_2668")
+
 #data = split_lines(data  = data, 
 #                   split = "rlp_10112", 
 #                   by    = "vdn_2668")
@@ -1794,7 +1795,7 @@ dt_rivers = dt_rivers[!ecoserv_id %in% c(
 )
 ]
 
-rm(add_river, dir_fun, dt_new_row, new_number_rlp, reverse);gc()
+rm(dt_new_row, new_number_rlp, reverse);gc()
 
 
 # SAVE  -----------------------------------------------------------

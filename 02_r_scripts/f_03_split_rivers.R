@@ -14,6 +14,16 @@ split_lines = function(data, split, by){
         st_tobe_split = filter(data, ecoserv_id == split)
         st_by = filter(data, ecoserv_id == by)
         
+        if (nrow(st_intersection(st_tobe_split, st_by)) == 0){
+                st_by = st_buffer(st_by, dist = 0)
+                if (nrow(st_intersection(st_tobe_split, st_by)) == 0){
+                        st_by = st_buffer(st_by, dist = 1)
+                        if (nrow(st_intersection(st_tobe_split, st_by)) == 0){
+                                st_by = st_buffer(st_by, dist = 5000)
+                                
+                        }     
+                }
+        }
         # split river segment 
         st_split_river = st_split(x = st_tobe_split,
                                   y = st_by) %>%
