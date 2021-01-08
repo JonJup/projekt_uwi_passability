@@ -29,7 +29,7 @@ source(file.path(DIR$rs, "f_01_reverse.R"))
 source(file.path(DIR$rs,  "f_03_split_rivers.R"))
 
 # load data ---------------------------------------------------------------
-dt_rivers = readRDS(file.path(DIR$da, "fixed_w_added.RDS"))
+dt_rivers = readRDS(file.path(DIR$da, "rivers_w_added.RDS"))
 st_sites  = readRDS(file.path(DIR$da, "sites_original.RDS"))
 st_barrier = st_read(file.path(DIR$da, "2020-08-22_all_barriers.gpkg"), quiet = T)
 
@@ -518,6 +518,7 @@ dt_rivers[ecoserv_id == "rlp_16937", FROM   := "P2917"]
 
 dt_rivers[ecoserv_id == "vdn_269" , TO   := "P16648"]
 dt_rivers[ecoserv_id == "vdn_973" , TO   := "P29028"]
+dt_rivers[ecoserv_id == "vdn_2111" , TO   := "P25900"]
 dt_rivers[ecoserv_id == "vdn_2342" , TO   := "P28346"]
 dt_rivers[ecoserv_id == "vdn_3872" , TO := "P21634_add"]
 dt_rivers[ecoserv_id == "vdn_4415" , FROM := "P21634_add"]
@@ -710,16 +711,46 @@ dt_rivers = reverse(x= c(
         "rlp_14291",
         "rlp_14301",
         "rlp_14302",
+        "rlp_14423",
+        "rlp_14473",
+        "rlp_14488",
+        "rlp_14513",
+        "rlp_14532",
+        "rlp_14536",
+        "rlp_14538",
+        "rlp_14561",
+        "rlp_14587",
+        "rlp_14608",
+        "rlp_14622",
+        "rlp_14639",
+        "rlp_14644",
+        "rlp_14658",
+        "rlp_14659",
+        "rlp_14665",
         "rlp_14696",
         "rlp_14697",
-        "rlp_14718",
+        #"rlp_14718",
         "rlp_14719",
+        "rlp_14750",
+        "rlp_14765",
+        "rlp_14778",
+        "rlp_14832",
+        "rlp_14869",
+
         "rlp_14923",
         "rlp_14932",
         "rlp_14934",
+        "rlp_14951",
         
+        "rlp_15004",
+        "rlp_15012",
+        "rlp_15056",
+        "rlp_15082",
+        "rlp_15096",
+        "rlp_15120",
         "rlp_15187",
         "rlp_15191",
+        "rlp_15198",
         "rlp_15434",
         "rlp_15703",
         "rlp_15804",
@@ -743,6 +774,7 @@ dt_rivers = reverse(x= c(
         #"vdn_247",
         "vdn_297",
         "vdn_425",
+        "vdn_507",
         "vdn_758",
         "vdn_900",
         "vdn_1011",
@@ -753,10 +785,12 @@ dt_rivers = reverse(x= c(
         "vdn_1928",
         #"vdn_2088",
         "vdn_2275",
+        "vdn_2379",
         "vdn_2513",
         "vdn_2571",
         "vdn_2796",
         "vdn_3048",
+        "vdn_3240",
         "vdn_3489",
         "vdn_3493",
         "vdn_3494",
@@ -787,6 +821,7 @@ dt_rivers = reverse(x= c(
         "vdn_3961",
         "vdn_4090",
         "vdn_4102",
+        "vdn_4178",
         "vdn_4246",
         "vdn_4256",
         "vdn_4265",
@@ -819,6 +854,7 @@ dt_rivers = reverse(x= c(
         "vdn_5044",
         "vdn_5051",
         "vdn_5099",
+        "vdn_5160",
         "vdn_5163",
         "vdn_5199",
         "vdn_5245",
@@ -844,6 +880,7 @@ dt_rivers = reverse(x= c(
         "vdn_5717",
         "vdn_5750",
         "vdn_5812",
+        "vdn_5826",
         "vdn_5883",
         "vdn_5887",
         "vdn_5890",
@@ -853,6 +890,7 @@ dt_rivers = reverse(x= c(
         "vdn_5925",
         "vdn_5936",
         "vdn_5946",
+        "vdn_6006",
         "vdn_6008",
         "vdn_6027",
         "vdn_6028",
@@ -863,6 +901,8 @@ dt_rivers = reverse(x= c(
         "vdn_6120",
         "vdn_6121",
         "vdn_6128",
+        "vdn_6159",
+        "vdn_6161",
         "vdn_6164",
         "vdn_6192",
         "vdn_6193",
@@ -1005,6 +1045,7 @@ dt_rivers = reverse(x= c(
         "vdn_7134",
         "vdn_7143",
         "vdn_7165",
+        "vdn_7199",
         "vdn_7212",
         "vdn_7255",
         "vdn_7262",
@@ -1017,6 +1058,7 @@ dt_rivers = reverse(x= c(
         "vdn_7345",
         "vdn_7369",
         "vdn_7371",
+        "vdn_7376",
         "vdn_7384",
         "vdn_7386",
         "vdn_7391",
@@ -1063,6 +1105,7 @@ dt_rivers = reverse(x= c(
         "vdn_7809",
         "vdn_7811",
         "vdn_7930",
+        "vdn_7933",
         "vdn_7935",
         "vdn_7942",
         "vdn_7953",
@@ -1081,6 +1124,7 @@ dt_rivers = reverse(x= c(
         "vdn_8010",
         "vdn_8011",
         "vdn_8018",
+        "vdn_8039",
         "vdn_8045",
         "vdn_8047",
         "vdn_8065",
