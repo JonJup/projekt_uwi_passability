@@ -34,12 +34,13 @@ DIR$rs = "02_r_scripts/"
 # source(file.path(DIR$rs, "01_fix_flow_direction.R"))
 
 # options 
-save     = FALSE
+save     = TRUE
 tmap_mode("view")
 
 ## -- add your sampling sites here ! -- ## 
-st_sites = readRDS("01_data/new_sites3.RDS")
-
+#st_sites = readRDS("01_data/new_sites3.RDS")
+st_sites = readRDS("01_data/sites_original.RDS")
+dt_rivers = readRDS("01_data/fixed_rivers.RDS")
 # carpeting ---------------------------------------------------------------
 # change files in a way that we can use them further on. 
 
@@ -65,12 +66,12 @@ dt_rivers_loop[,evaled:=0]
 st_rivers_loop = st_as_sf(as.data.frame(dt_rivers_loop))
 
 # find number of sites when you know the id 
-which(st_sites$site %in% c("ES001", "ES002", "ES003"))
+which(st_sites$site %in% c("PW_05"))
 
 
 # Figuratively speaking this loops lets the water flow through the rivers. It
 # loops over the start positions.
-for (j in c(81)) { # START LOOP 1 
+for (j in c(5)) { # START LOOP 1 
     
         # find the river segment that is closest to the point (i.e. the start segment)
         start_segement <- st_nearest_feature(x = st_sites[j,], 
