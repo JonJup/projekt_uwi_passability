@@ -24,7 +24,19 @@ dt_rivers = readRDS(file.path(DIR$data, "fixed_w_barrier.RDS"))
 sf_sites  = readRDS(file.path(DIR$data, "sites_original.RDS"))
 sf_sites2 = readRDS(file.path(DIR$data, "new_sites2.RDS"))
 
-names(sf_sites) = c("id", "")
+# drop "bow" variable 
+sf_sites %<>% select(!"bow")
+names(sf_sites) = c("layer", "geom")
+st_geometry(sf_sites) = "geom"
+# transform projection. Both data sets need to have the same projection. 
+sf_sites %<>% st_transform(crs = st_crs(sf_sites2))
+
+
+# drop "raster" variable 
+sf_sites2 %<>% select(!raster)
+
+#combine data sets 
+sf_sites_w2 = rbind(sf_sites, sf_sites2)
 
 
 # carpet ------------------------------------------------------------------
@@ -57,7 +69,7 @@ li_sp = list()
 
 
 n_sites = nrow(sf_sites)
-n_sites = 10
+#n_sites = 10
 
 
 # create symmetric matrices for spatial and barrier distance 
@@ -76,40 +88,39 @@ diag(ma_spatial) = 0
 # saveRDS(close_segment, "01_data/jj_close_segment.RDS")
 close_segment = readRDS("01_data/jj_close_segment.RDS")
 
-loop_out = matrix(data = NA, nrow=n_sites, ncol=n_sites)
-diag(loop_out) = 0
+# loop_out = matrix(data = NA, nrow=n_sites, ncol=n_sites)
+# diag(loop_out) = 0
 # # check if two point are connected 
-for (site1 in 1:n_sites) {
-        for (site2 in 1:n_sites) {
-                if (site1 == site2) next()
-                # Print start message
-                print(paste("START from", vc_sites[site1], "to", vc_sites[site2]))
-
-                int_start = close_segment[site1]
-                int_end   = close_segment[site2]
-
-                int_start = sf_rivers[int_start, ]$ecoserv_id
-                int_end   = sf_rivers[int_end,   ]$ecoserv_id
-                from      = dt_edge[ecoserv_id ==  int_start, Node2]
-                to        = dt_edge[ecoserv_id ==  int_end,   Node1]
-
-                li_sp = shortest_paths(graph = nw_rivers,
-                                       from  = from,
-                                       to    = to)
-                v_path = unlist(li_sp[[1]])
-                loop_out[site1, site2] = length(v_path)
-        }
-        print(site1)
-}
+# for (site1 in 1:n_sites) {
+#         for (site2 in 1:n_sites) {
+#                 if (site1 == site2) next()
+#                 # Print start message
+#                 print(paste("START from", vc_sites[site1], "to", vc_sites[site2]))
+# 
+#                 int_start = close_segment[site1]
+#                 int_end   = close_segment[site2]
+# 
+#                 int_start = sf_rivers[int_start, ]$ecoserv_id
+#                 int_end   = sf_rivers[int_end,   ]$ecoserv_id
+#                 from      = dt_edge[ecoserv_id ==  int_start, Node2]
+#                 to        = dt_edge[ecoserv_id ==  int_end,   Node1]
+# 
+#                 li_sp = shortest_paths(graph = nw_rivers,
+#                                        from  = from,
+#                                        to    = to)
+#                 v_path = unlist(li_sp[[1]])
+#                 loop_out[site1, site2] = length(v_path)
+#         }
+#         print(site1)
+# }
 
 #saveRDS(loop_out, "01_data/jj_loop_out.RDS")
-
 loop_out = readRDS("01_data/jj_loop_out.RDS")
 
 corrplot::corrplot(loop_out, is.corr = FALSE, diag = FALSE, type = "lower")
 
-for (site1 in 1:5) { # Loop site1 
-        for (site2 in 1:5) { # loop site2 
+for (site1 in 1:n_sites) { # Loop site1 
+        for (site2 in 1:n_sites) { # loop site2 
                 
                 # skip if same site or not reached 
                 if (site1 == site2 | loop_out[site1, site2] == 1) next()
@@ -174,6 +185,9 @@ for (site1 in 1:5) { # Loop site1
                 # now loop over path and determine sequence and flow direction 
                 for (i in seq_along(v_path)) {
                 #for (i in 1:114){
+                        if (i == 1) loop_bool = 1
+                        if(loop_bool == 0) next()
+                        
                         loop_var = tb_edge_id_sub[is.na(flow_direction) &
                                                           (Node1 == v_path[i] |
                                                            Node2 == v_path[i])]
@@ -199,10 +213,20 @@ for (site1 in 1:5) { # Loop site1
                                                                    loop_var$FROM == tb_edge_id_sub[segment_number == (i), FROM]
                                                            ),
                                                            4,
-                                                           print("bool = 0, can't decide if up or down")
+                                                           0 
                                                            ))
                                                           )
                                                    )
+                                
+                                # informative failure 
+                                if (loop_bool == 0) {
+                                        print("bool = 0, can't decide if up or down")
+                                        ma_distance[site1, site2] = 666
+                                        ma_spatial[site1, site2] = 666
+                                        ma_spatial_p_cg[site1, site2] = 666
+                                }
+                                
+                                if(loop_bool == 0) break()
                                 
                                 if (loop_bool == 1) {
                                         # check for length
@@ -252,6 +276,7 @@ for (site1 in 1:5) { # Loop site1
                         }
                         
                 } # END loop of path
+                if(loop_bool != 0){
                 
                 # CALCULATE PROBABILITES
                 p_down  = prod(dt_rivers[ecoserv_id %in% tb_edge_id_sub[flow_direction ==
@@ -280,6 +305,7 @@ for (site1 in 1:5) { # Loop site1
                 ## PRINT LOOP END
                 print(paste("FINISHED from", vc_sites[site1], "to", vc_sites[site2]))
                 # REMOVE LOOP OBJECTS
+                }
                 rm(
                         int_start,
                         int_end,
