@@ -10,9 +10,12 @@
 # overview # 
 
 ## OPTIONS 
+
+
+
 OPTIONS = list(workshop= F, 
                remove= F,
-               save = T)
+               save = F)
 
 # setup -------------------------------------------------------------------
 pacman::p_load(data.table,
@@ -23,6 +26,11 @@ pacman::p_load(data.table,
                sf,
                stringr,
                tmap)
+
+# create DIR if not present 
+if (!str_detect("DIR", ls())){
+source(textConnection(readLines(file.path("02_r_scripts/02_check_flow.R"))[28:30]))
+}
 
 # load reverse function 
 source(file.path(DIR$rs, "f_01_reverse.R"))
@@ -539,8 +547,7 @@ dt_rivers[ecoserv_id == "vdn_4399" , FROM := "P22684"]
 dt_rivers[ecoserv_id == "vdn_7362" , FROM := "P20200"]
 dt_rivers[ecoserv_id == "vdn_7362" , TO   := "P22508"]
 dt_rivers[ecoserv_id == "vdn_7765", FROM := "P17078"]
-dt_rivers[ecoserv_id == "vdn_7815", FROM := "P29518"]
-dt_rivers[ecoserv_id == "vdn_7815", TO := "P127267"]
+
 dt_rivers[ecoserv_id == "vdn_8001" , FROM   := "P21820"]
 dt_rivers[ecoserv_id == "vdn_8001" , TO   := "P29426"]
 
@@ -2589,7 +2596,8 @@ dt_rivers[ecoserv_id == "split_2", FROM := "P19952"]
 dt_rivers[ecoserv_id == "split_2", TO := "P2582"]
 dt_rivers[ecoserv_id == "rlp_10112", FROM := "P2580"]
 dt_rivers[ecoserv_id == "rlp_10112", TO := "P19952"]
-
+dt_rivers[ecoserv_id == "vdn_7815", FROM := "P29518"]
+dt_rivers[ecoserv_id == "vdn_7815", TO := "P127267"]
 ## ---- add rows ----- ## 
 new_number_rlp <- dt_rivers[str_detect(string=ecoserv_id,pattern="rlp"), max(ecoserv_number)]
 dt_new_row <- data.table(ecoserv_id = paste0("rlp_", new_number_rlp + 1:2), 
@@ -2618,6 +2626,8 @@ dt_rivers = dt_rivers[!ecoserv_id %in% c(
 ]
 
 rm(dt_new_row, new_number_rlp, reverse);gc()
+
+
 
 
 # SAVE  -----------------------------------------------------------
