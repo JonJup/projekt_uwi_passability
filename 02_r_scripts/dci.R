@@ -91,28 +91,28 @@ close_segment = readRDS("01_data/jj_close_segment.RDS")
 # loop_out = matrix(data = NA, nrow=n_sites, ncol=n_sites)
 # diag(loop_out) = 0
 # # check if two point are connected 
-# for (site1 in 1:n_sites) {
-#         for (site2 in 1:n_sites) {
-#                 if (site1 == site2) next()
-#                 # Print start message
-#                 print(paste("START from", vc_sites[site1], "to", vc_sites[site2]))
-# 
-#                 int_start = close_segment[site1]
-#                 int_end   = close_segment[site2]
-# 
-#                 int_start = sf_rivers[int_start, ]$ecoserv_id
-#                 int_end   = sf_rivers[int_end,   ]$ecoserv_id
-#                 from      = dt_edge[ecoserv_id ==  int_start, Node2]
-#                 to        = dt_edge[ecoserv_id ==  int_end,   Node1]
-# 
-#                 li_sp = shortest_paths(graph = nw_rivers,
-#                                        from  = from,
-#                                        to    = to)
-#                 v_path = unlist(li_sp[[1]])
-#                 loop_out[site1, site2] = length(v_path)
-#         }
-#         print(site1)
-# }
+for (site1 in 1:n_sites) {
+        for (site2 in 1:n_sites) {
+                if (site1 == site2) next()
+                # Print start message
+                print(paste("START from", vc_sites[site1], "to", vc_sites[site2]))
+
+                int_start = close_segment[site1]
+                int_end   = close_segment[site2]
+
+                int_start = sf_rivers[int_start, ]$ecoserv_id
+                int_end   = sf_rivers[int_end,   ]$ecoserv_id
+                from      = dt_edge[ecoserv_id ==  int_start, Node2]
+                to        = dt_edge[ecoserv_id ==  int_end,   Node1]
+
+                li_sp = shortest_paths(graph = nw_rivers,
+                                       from  = from,
+                                       to    = to)
+                v_path = unlist(li_sp[[1]])
+                loop_out[site1, site2] = length(v_path)
+        }
+        print(site1)
+}
 
 #saveRDS(loop_out, "01_data/jj_loop_out.RDS")
 loop_out = readRDS("01_data/jj_loop_out.RDS")
