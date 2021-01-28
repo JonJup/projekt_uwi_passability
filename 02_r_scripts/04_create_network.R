@@ -23,9 +23,9 @@ dt_rivers = readRDS(
         file.path(DIR$data, "fixed_rivers.RDS")
 )
 
-st_sampling_sites = readRDS(
-        file.path(DIR$data, "sites_original.RDS")
-)
+# st_sampling_sites = readRDS(
+#         file.path(DIR$data, "sites_original.RDS")
+# )
 
 # CARPET ------------------------------------------------------------------
 # to sf spatial object 

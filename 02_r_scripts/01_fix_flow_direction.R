@@ -15,7 +15,7 @@
 
 OPTIONS = list(workshop= F, 
                remove= F,
-               save = F)
+               save = T)
 
 # setup -------------------------------------------------------------------
 pacman::p_load(data.table,
@@ -35,6 +35,8 @@ source(textConnection(readLines(file.path("02_r_scripts/02_check_flow.R"))[28:30
 # load reverse function 
 source(file.path(DIR$rs, "f_01_reverse.R"))
 source(file.path(DIR$rs,  "f_03_split_rivers.R"))
+source(file.path(DIR$rs,  "f_04_clean_node.R"))
+source(file.path(DIR$rs,  "f_05_split_rivers_external.R"))
 
 # load data ---------------------------------------------------------------
 dt_rivers = readRDS(file.path(DIR$da, "rivers_w_added.RDS"))
@@ -2571,20 +2573,22 @@ dt_rivers = reverse(x= c(
 
 #  SPLIT LINES  -----------------------------------------------------------
 print("### --- SPLIT SEGMENTS --- ###")
+options(warn = -1)
 data = st_as_sf(dt_rivers)
 data = split_lines(data  = data, 
                    split = "vdn_7815", 
                    by    = "sar_8075")
+# save original rlp10112 to split vdn_2668 with it
+splitter = filter(data, ecoserv_id == "rlp_10112")
 data = split_lines(data  = data, 
                    split = "rlp_10112", 
                    by    = "vdn_2668")
+data = split_lines_external(data = data,
+                            split = "vdn_2668",
+                            by = splitter)
 
-#data = split_lines(data  = data, 
-#                   split = "rlp_10112", 
-#                   by    = "vdn_2668")
-# data = split_lines(data  = data, 
-#                    split = "vdn_2668", 
-#                    by    = "split_2")
+
+options(warn = 1)
 setDT(data)
 dt_rivers = data
 
@@ -2598,6 +2602,9 @@ dt_rivers[ecoserv_id == "rlp_10112", FROM := "P2580"]
 dt_rivers[ecoserv_id == "rlp_10112", TO := "P19952"]
 dt_rivers[ecoserv_id == "vdn_7815", FROM := "P29518"]
 dt_rivers[ecoserv_id == "vdn_7815", TO := "P127267"]
+dt_rivers[ecoserv_id == "vdn_2668", FROM := "P19951"]
+dt_rivers[ecoserv_id == "vdn_2668", TO := "P19952"]
+
 ## ---- add rows ----- ## 
 new_number_rlp <- dt_rivers[str_detect(string=ecoserv_id,pattern="rlp"), max(ecoserv_number)]
 dt_new_row <- data.table(ecoserv_id = paste0("rlp_", new_number_rlp + 1:2), 
