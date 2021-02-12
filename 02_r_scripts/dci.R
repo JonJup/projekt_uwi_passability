@@ -42,7 +42,11 @@ sf_sites4 %<>% select(!raster)
 sf_sites5 %<>% select(!raster)
 
 #combine data sets
-sf_sites_w2 = rbind(sf_sites, sf_sites2, sf_sites3, sf_sites4, sf_sites5)
+sf_sites_w2 = rbind(sf_sites, sf_sites2, sf_sites3 ,sf_sites4, sf_sites5)
+
+sf_sites_w2 <- sf_sites_w2[a,]
+
+sf_sites_w2 = readRDS("01_data/reduced_random_sites.RDS")
 
 
 # carpet ------------------------------------------------------------------
@@ -81,43 +85,43 @@ n_sites = nrow(sf_sites_w2)
 #n_sites = 10
 
 #identify nearest stream segment for each point
-# close_segment = c()
-# for (i in 1:n_sites){
-#         close_segment[i] = st_nearest_feature(x = sf_sites_w2[i,],
-#                                               y = sf_rivers)
-#         print(i)
-# }
-#saveRDS(close_segment, "01_data/jj_close_segment_all.RDS")
-close_segment = readRDS("01_data/jj_close_segment_all.RDS")
+close_segment = c()
+for (i in 1:n_sites){
+        close_segment[i] = st_nearest_feature(x = sf_sites_w2[i,],
+                                              y = sf_rivers)
+        print(i)
+}
+saveRDS(close_segment, "01_data/ts_close_segment_75.RDS")
+close_segment = readRDS("01_data/ts_close_segment_75.RDS")
 
-# loop_out = matrix(data = NA, nrow=n_sites, ncol=n_sites)
-# diag(loop_out) = 0
-# # check if two point are connected
-# for (site1 in 1:n_sites) {
-#         for (site2 in 1:n_sites) {
-#                 if (site1 == site2) next()
-#                 # Print start message
-#                 print(paste("START from", vc_sites[site1], "to", vc_sites[site2]))
-#
-#                 int_start = close_segment[site1]
-#                 int_end   = close_segment[site2]
-#
-#                 int_start = sf_rivers[int_start, ]$ecoserv_id
-#                 int_end   = sf_rivers[int_end,   ]$ecoserv_id
-#                 from      = dt_edge[ecoserv_id ==  int_start, Node2]
-#                 to        = dt_edge[ecoserv_id ==  int_end,   Node1]
-#
-#                 li_sp = shortest_paths(graph = nw_rivers,
-#                                        from  = from,
-#                                        to    = to)
-#                 v_path = unlist(li_sp[[1]])
-#                 loop_out[site1, site2] = length(v_path)
-#         }
-#         print(site1)
-# }
+loop_out = matrix(data = NA, nrow=n_sites, ncol=n_sites)
+diag(loop_out) = 0
+# check if two point are connected
+for (site1 in 1:n_sites) {
+        for (site2 in 1:n_sites) {
+                if (site1 == site2) next()
+                # Print start message
+                print(paste("START from", vc_sites[site1], "to", vc_sites[site2]))
 
-#saveRDS(loop_out, "01_data/jj_loop_out_all.RDS")
-loop_out = readRDS("01_data/jj_loop_out_all.RDS")
+                int_start = close_segment[site1]
+                int_end   = close_segment[site2]
+
+                int_start = sf_rivers[int_start, ]$ecoserv_id
+                int_end   = sf_rivers[int_end,   ]$ecoserv_id
+                from      = dt_edge[ecoserv_id ==  int_start, Node2]
+                to        = dt_edge[ecoserv_id ==  int_end,   Node1]
+
+                li_sp = shortest_paths(graph = nw_rivers,
+                                       from  = from,
+                                       to    = to)
+                v_path = unlist(li_sp[[1]])
+                loop_out[site1, site2] = length(v_path)
+        }
+        print(site1)
+}
+
+saveRDS(loop_out, "01_data/ts_loop_out_75.RDS")
+loop_out = readRDS("01_data/ts_loop_out_75.RDS")
 
 # corrplot::corrplot(
 #         loop_out,
@@ -144,8 +148,11 @@ diag(ma_spatial_p_cg) = 1
 diag(ma_spatial) = 0
 
 
-start_sites = sample(1:nrow(sf_sites_w2), 15)
-end_sites = sample(1:nrow(sf_sites_w2), 15)
+#start_sites = sample(1:nrow(sf_sites_w2), 15)
+#end_sites = sample(1:nrow(sf_sites_w2), 15)
+
+start_sites = (1:nrow(sf_sites_w2))
+end_sites = (1:nrow(sf_sites_w2))
 
 
 for (site1 in start_sites) {
@@ -199,16 +206,16 @@ for (site1 in start_sites) {
                 tb_edge_id_sub = st_loop_length[tb_edge_id_sub, on = "ecoserv_id"]
                 
                 # MANAUAL EDIT JJ
-                if (site1 == 1 & site2 == 3)
-                        v_path = v_path[-116]
-                if (site1 == 2 & site2 == 3)
-                        v_path = v_path[-76]
-                if (site1 == 3)
-                        v_path = v_path[-4]
-                if (site1 == 4 & site2 == 3)
-                        v_path = v_path[-20]
-                if (site1 == 5 & site2 == 3)
-                        v_path = v_path[-48]
+                # if (site1 == 1 & site2 == 3)
+                #         v_path = v_path[-116]
+                # if (site1 == 2 & site2 == 3)
+                #         v_path = v_path[-76]
+                # if (site1 == 3)
+                #         v_path = v_path[-4]
+                # if (site1 == 4 & site2 == 3)
+                #         v_path = v_path[-20]
+                # if (site1 == 5 & site2 == 3)
+                #         v_path = v_path[-48]
                 
                 # now loop over path and determine sequence and flow direction
                 for (i in seq_along(v_path)) {
@@ -389,8 +396,11 @@ for (site1 in start_sites) {
         } # end loop site2
 } # end Loop site1
 
+# saveRDS(ma_distance, "01_data/ts_ma_distance_75.RDS")
+# saveRDS(ma_spatial, "01_data/ts_ma_spatial_75.RDS")
+
 # ma_distance %>% corrplot::corrplot(method = "square",
-#                                    is.corr = FALSE, 
+#                                    is.corr = FALSE,
 #                                    addgrid.col = NA,
 #                                    tl.pos = 'n')
 # ma_spatial %>% corrplot::corrplot(
@@ -401,7 +411,7 @@ for (site1 in start_sites) {
 #         addgrid.col = NA,
 #         tl.pos = 'n'
 # )
-
+# 
 
 # Evaluate loop -----------------------------------------------------------
 
@@ -418,18 +428,20 @@ ma_distance2 = matrix(ma_distance2.v, ncol = length(id))
 ma_spatial2 = ma_spatial %>% round(2)
 diag(ma_spatial2) = 666
 id = which(apply(ma_spatial2,2,function(x)!(all(x %in% c(NA,666)))))
-id = c(id, site1, site2) %>% unique %>% sort()
+id = c(id, start_sites, end_sites) %>% unique %>% sort()
 ma_spatial2 = ma_spatial2[id,id]
 ma_spatial2.v = as.vector(ma_spatial2)
 cs = which(ma_spatial2.v == 666)
 ma_spatial2.v[cs] = NA
 ma_spatial2 = matrix(ma_spatial2.v, ncol = length(id))
 
+apply(ma_distance2,1, function(x) sum(!is.na(x)))
 
 sum(!is.na(ma_distance2))
-corrplot::corrplot(test2,  addgrid.col = NA)
+corrplot::corrplot(ma_distance2,  addgrid.col = NA)
 sum(!is.na(ma_spatial2))
-corrplot::corrplot(test2,  addgrid.col = NA, is.corr = FALSE)
+corrplot::corrplot(ma_spatial2,  addgrid.col = NA, is.corr = FALSE)
+
 
 
 # DCI ---------------------------------------------------------------------
@@ -438,16 +450,18 @@ corrplot::corrplot(test2,  addgrid.col = NA, is.corr = FALSE)
 
 # weighting differs from original!
 # without NAs
-L = sum(ma_spatial[1:5, 1:5])
+L = sum(ma_spatial2[1:n_sites, 1:n_sites])
 # with NAs
-L = sum(ma_spatial, na.rm = T)
+L = sum(ma_spatial2, na.rm = T)
 
-vc_distance = as.vector(ma_distance)
-vc_spatial = as.vector(ma_spatial)
+vc_distance = as.vector(ma_distance2)
+vc_spatial = as.vector(ma_spatial2)
 vc_spatial_norm = vc_spatial / L
 ifelse(sum(vc_spatial_norm, na.rm = TRUE) == 1, "Passed", "Failed")
 
 (DCI = sum(vc_distance * vc_spatial_norm, na.rm = TRUE))
+(DCI = sum(vc_distance * (1-vc_spatial_norm), na.rm = TRUE))
+(DCI = mean(vc_distance, na.rm = TRUE))
 
 # non zero example
 ma_distance_mod = matrix(data = runif(n = 25, 0, 1), ncol = 5)
